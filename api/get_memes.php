@@ -11,7 +11,7 @@ $status = 'error';
 $msg = 'Get memes error!';
 
 // Get all meme detail
-$sql = "SELECT * FROM memes ORDER BY id DESC";
+$sql = "SELECT m.*, count(l.meme_id) as total_like FROM memes m LEFT JOIN likes l on m.id = l.meme_id GROUP BY m.id ORDER BY id DESC";
 $stmt = $mysqli->prepare($sql);
 $stmt->execute();
 $res = $stmt->get_result();

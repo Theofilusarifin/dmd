@@ -15,7 +15,7 @@ if (isset($_POST['user_id'])) {
     $user_id = $_POST['user_id'];
 
     // Get all meme detail
-    $sql = "SELECT * FROM memes WHERE user_id = ? ORDER BY id DESC";
+    $sql = "SELECT m.*, count(l.meme_id) as total_like FROM memes m LEFT JOIN likes l on m.id = l.meme_id WHERE m.user_id = ? GROUP BY m.id ORDER BY id DESC";
     $stmt = $mysqli->prepare($sql);
     $stmt->bind_param("i", $user_id);
     $stmt->execute();

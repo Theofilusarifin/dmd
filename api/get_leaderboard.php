@@ -11,7 +11,7 @@ $status = 'error';
 $msg = 'Get leaderboard error!';
 
 // Get leaderboard detail
-$sql = "SELECT u.*, SUM(m.total_like) as total_like FROM memes m INNER JOIN users u on m.user_id = u.id GROUP BY u.id ORDER BY total_like DESC";
+$sql = "SELECT u.*, count(l.meme_id) as total_like FROM users u LEFT JOIN likes l on u.id = l.user_id LEFT JOIN memes m on m.id = l.meme_id GROUP BY m.user_id ORDER BY total_like DESC";
 $stmt = $mysqli->prepare($sql);
 $stmt->execute();
 $res = $stmt->get_result();
