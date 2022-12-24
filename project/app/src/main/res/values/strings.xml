@@ -7,4 +7,8 @@
     <string name="bottom_text_preview">Bottom Text Preview</string>
     <string name="top_text_preview">Top Text Preview</string>
     <string name="meme_preview">Meme Preview</string>
+    <string name="image_url">Image URL</string>
+    <string name="top_text">Top Text</string>
+    <string name="bottom_text">Bottom Text</string>
+    <string name="submit">Submit</string>
 </resources>

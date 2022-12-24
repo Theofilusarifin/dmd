@@ -61,6 +61,33 @@ class MemelistAdapter(val listMemes:ArrayList<Memes>)
 //            q.add(stringRequest)
 //        }
 
+//        holder.v.btn_detail.setOnClickListener{
+//            val q = Volley.newRequestQueue(holder.v.context)
+//            val url = "http://192.168.43.237/mobile_db/set_likes.php"
+////            val url = "http://192.168.18.109/mobile_db/set_likes.php"
+//            val stringRequest = object : StringRequest(Request.Method.POST, url,
+//                Response.Listener {
+//                    Log.d("cekparams", it)
+//                    IF TRUE INTENT TO NEW ACTIVITY
+//                Response.ErrorListener {
+//                    Log.d("cekparams", it.message.toString())
+//                }
+//            )
+//            {
+//                // anonymous object body
+//                override fun getParams(): MutableMap<String, String> {
+//                    val params = HashMap<String, String>()
+//                    params["id"] = listMemes[position].id.toString()
+//                    return params
+//                }
+//
+//                //short version
+////                override fun getParams() = hashMapOf("id" to playlists[position].id.toString())
+//            }
+//            // Perlu create volley baru
+//            q.add(stringRequest)
+//        }
+
     }
 
     override fun getItemCount(): Int = listMemes.size
