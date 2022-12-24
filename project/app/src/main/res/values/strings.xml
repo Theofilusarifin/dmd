@@ -4,4 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_like">1 Likes</string>
     <string name="meme_picture">meme_picture</string>
+    <string name="bottom_text_preview">Bottom Text Preview</string>
+    <string name="top_text_preview">Top Text Preview</string>
+    <string name="meme_preview">Meme Preview</string>
 </resources>
