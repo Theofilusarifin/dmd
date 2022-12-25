@@ -25,7 +25,7 @@
             android:layout_height="match_parent">
 
             <FrameLayout
-                android:id="@+id/frameLayout"
+                android:id="@+id/frameLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +33,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/iv_meme"
+                    android:id="@+id/iv_meme2"
                     android:layout_width="wrap_content"
                     android:layout_height="250dp"
                     android:contentDescription="@string/meme_picture"
@@ -41,7 +41,7 @@
                     tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
                 <TextView
-                    android:id="@+id/tv_meme_top_text"
+                    android:id="@+id/tv_meme_top_text2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="8dp"
@@ -51,7 +51,7 @@
                     tools:ignore="TextContrastCheck" />
 
                 <TextView
-                    android:id="@+id/tv_meme_bottom_text"
+                    android:id="@+id/tv_meme_bottom_text2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="8dp"
@@ -62,8 +62,19 @@
 
             </FrameLayout>
 
+            <TextView
+                android:id="@+id/tv_meme_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/sample_date"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/frameLayout3" />
+
             <Button
-                android:id="@+id/btn_detail"
+                android:id="@+id/btn_detail_meme"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
@@ -75,11 +86,11 @@
                 app:iconSize="40dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+                app:layout_constraintTop_toBottomOf="@+id/tv_meme_date"
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <Button
-                android:id="@+id/btn_like"
+                android:id="@+id/btn_like_preview"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
@@ -90,18 +101,28 @@
                 app:iconSize="40dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+                app:layout_constraintTop_toBottomOf="@+id/tv_meme_date"
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <TextView
-                android:id="@+id/tv_like"
+                android:id="@+id/tv_likes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/default_like"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btn_like"
-                app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+                app:layout_constraintStart_toEndOf="@+id/btn_like_preview"
+                app:layout_constraintTop_toBottomOf="@+id/tv_meme_date" />
+
+            <TextView
+                android:id="@+id/tv_comments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/default_comment"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_detail_meme"
+                app:layout_constraintTop_toBottomOf="@+id/tv_meme_date" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

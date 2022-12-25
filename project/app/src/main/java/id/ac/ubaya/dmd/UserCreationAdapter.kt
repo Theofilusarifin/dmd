@@ -1,34 +1,31 @@
 package id.ac.ubaya.dmd
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.meme_card.view.*
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
+import kotlinx.android.synthetic.main.user_meme_card.view.*
 
-class MemelistAdapter(val listMemes:ArrayList<Memes>)
-    : RecyclerView.Adapter<MemelistAdapter.MemelistViewHolder>() {
-    class MemelistViewHolder(val v: View): RecyclerView.ViewHolder(v)
+class UserCreationAdapter(val listMemes:ArrayList<Memes>)
+    : RecyclerView.Adapter<UserCreationAdapter.UserCreationViewHolder>() {
+    class UserCreationViewHolder(val v: View): RecyclerView.ViewHolder(v)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemelistViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserCreationViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        var v = inflater.inflate(R.layout.meme_card, parent,false)
-        return MemelistViewHolder(v)
+        var v = inflater.inflate(R.layout.user_meme_card, parent,false)
+        return UserCreationViewHolder(v)
     }
 
-    override fun onBindViewHolder(holder: MemelistViewHolder, @SuppressLint("RecyclerView") position: Int) {
+    override fun onBindViewHolder(holder: UserCreationViewHolder, @SuppressLint("RecyclerView") position: Int) {
         val url = listMemes[position].url_img
-        Picasso.get().load(url).into(holder.v.iv_meme)
-        holder.v.tv_meme_top_text.text = listMemes[position].top_text
-        holder.v.tv_meme_bottom_text.text = listMemes[position].bottom_text
-        holder.v.tv_like.text = listMemes[position].num_likes.toString() + " Likes"
+        Picasso.get().load(url).into(holder.v.iv_meme2)
+        holder.v.tv_meme_top_text2.text = listMemes[position].top_text
+        holder.v.tv_meme_bottom_text2.text = listMemes[position].bottom_text
+        holder.v.tv_likes.text = listMemes[position].num_likes.toString() + " Likes"
+        holder.v.tv_comments.text = listMemes[position].num_comments.toString() + " Comments"
 
 //        TEMPLATE BUAT BTN LIKE DAN BTN DETAIL
 //        holder.v.btn_like.setOnClickListener{

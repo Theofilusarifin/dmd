@@ -50,11 +50,11 @@ class HomeFragment : Fragment() {
         return v
     }
 
-    fun getPlaylist(){
+    fun getMemelist(){
         memelist = ArrayList()
-        var meme1 = Memes(1,"Top Text", "Bottom Text", "https://www.generatormix.com/images/meme/stahp.jpg", 1,1)
-        var meme2 = Memes(2,"Coba Top Text", "Coba Bottom Text", "https://www.generatormix.com/images/meme/stahp.jpg", 1,1)
-        var meme3 = Memes(3,"Panjang Banget Top Text", "Panjang Banget Bottom Text", "https://www.generatormix.com/images/meme/stahp.jpg", 1,1)
+        var meme1 = Memes(1,"Top Text", "Bottom Text", "https://www.generatormix.com/images/meme/stahp.jpg", 1,1,5, "2022-12-25 00:48:00")
+        var meme2 = Memes(2,"Coba Top Text", "Coba Bottom Text", "https://www.generatormix.com/images/meme/stahp.jpg", 1,1, 5,"2022-12-25 00:48:00")
+        var meme3 = Memes(3,"Panjang Banget Top Text", "Panjang Banget Bottom Text", "http://pm1.narvii.com/5734/a7a08ce9ba236846588115fdd09f3f8d733d0850_00.jpg", 1,1,5, "2022-12-25 00:48:00")
         memelist.add(meme1)
         memelist.add(meme2)
         memelist.add(meme3)
@@ -103,7 +103,7 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        getPlaylist()
+        getMemelist()
     }
 
     companion object {

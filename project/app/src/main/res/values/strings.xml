@@ -11,4 +11,10 @@
     <string name="top_text">Top Text</string>
     <string name="bottom_text">Bottom Text</string>
     <string name="submit">Submit</string>
+    <string name="sample_date">2022-12-25 01:20:37</string>
+    <string name="default_comment">5 comments</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="hide_my_name">Hide my name</string>
 </resources>
