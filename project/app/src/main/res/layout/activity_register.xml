@@ -58,7 +58,6 @@
                     android:id="@+id/txtUsername"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:inputType="textPassword"
                     android:letterSpacing="0"
                     android:textAppearance="@style/TextNormal"
                     android:textColor="@color/custom_light_black" />
@@ -73,7 +72,7 @@
                 android:layout_marginEnd="24dp"
                 android:hint="Last Name"
                 app:boxBackgroundColor="@color/white"
-                app:endIconDrawable="@drawable/ic_baseline_person_24"
+                app:endIconDrawable="@drawable/ic_baseline_create_24"
                 app:endIconMode="custom"
                 app:hintAnimationEnabled="true"
                 app:hintEnabled="true"
@@ -85,7 +84,6 @@
                     android:id="@+id/txtLastName"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:inputType="textPassword"
                     android:letterSpacing="0"
                     android:textAppearance="@style/TextNormal"
                     android:textColor="@color/custom_light_black" />
@@ -126,6 +124,7 @@
                     android:id="@+id/txtConfirmPassword"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
+                    android:inputType="textPassword"
                     android:letterSpacing="0"
                     android:textAppearance="@style/TextNormal"
                     android:textColor="@color/custom_light_black" />
@@ -152,6 +151,7 @@
                     android:id="@+id/txtPassword"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
+                    android:inputType="textPassword"
                     android:letterSpacing="0"
                     android:textAppearance="@style/TextNormal"
                     android:textColor="@color/custom_light_black" />
@@ -166,7 +166,7 @@
                 android:layout_marginEnd="24dp"
                 android:hint="First Name"
                 app:boxBackgroundColor="@color/white"
-                app:endIconDrawable="@drawable/ic_baseline_person_24"
+                app:endIconDrawable="@drawable/ic_baseline_create_24"
                 app:endIconMode="custom"
                 app:hintAnimationEnabled="true"
                 app:hintEnabled="true"

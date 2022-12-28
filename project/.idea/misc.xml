@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/drawable/ic_baseline_chat_24.xml" value="0.3215" />
+        <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/drawable/ic_baseline_create_24.xml" value="0.3215" />
+        <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.3215" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.2805" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/drawable/ic_baseline_vpn_key_24.xml" value="0.2805" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/font/karla_bold.xml" value="0.39479166666666665" />
