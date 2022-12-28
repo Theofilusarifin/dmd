@@ -39,6 +39,5 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 // Return Json
 echo json_encode(array(
     "status" => $status,
-    "msg" => $msg, "row" => $row,
-
+    "msg" => $msg,
 ));

@@ -19,36 +19,41 @@ class RegisterActivity : AppCompatActivity() {
         btnDaftar.setOnClickListener {
             if (txtPassword.text.toString() == txtConfirmPassword.text.toString()) {
                 val queue = Volley.newRequestQueue(this)
-                val url = "http://192.168.1.66/myLulus/register.php"
+                val url = "http://192.168.100.37/dmd/api/register.php"
 
                 val stringRequest = object : StringRequest(
                     Request.Method.POST,
                     url,
                     Response.Listener {
-                        Log.d("Berhasil", it)
                         val obj = JSONObject(it)
 
-                        if (obj.getString("result") == "success") {
-                            Toast.makeText(this, "Register Success", Toast.LENGTH_LONG).show()
+                        if (obj.getString("status") == "success") {
+                            Toast.makeText(this, obj.getString("msg"), Toast.LENGTH_LONG).show()
+
                             finish()
                         } else {
-                            Toast.makeText(this, "Register Failed", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this, obj.getString("msg"), Toast.LENGTH_LONG).show()
                         }
                     },
                     Response.ErrorListener {
+                        Toast.makeText(this, "Error Register", Toast.LENGTH_SHORT).show()
                         Log.e("Gagal", it.toString())
                     }
                 ) {
                     override fun getParams(): MutableMap<String, String> {
                         val params = HashMap<String, String>()
-                        params["nrp"] = txtNRP.text.toString()
+                        params["username"] = txtUsername.text.toString()
+                        params["password"] = txtPassword.text.toString()
+                        params["first_name"] = txtFirstName.text.toString()
+                        params["last_name"] = txtLastName.text.toString()
+
                         return params
                     }
                 }
 
                 queue.add(stringRequest)
             } else {
-                Toast.makeText(this, "Password tidak sesuai", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Password does not match!", Toast.LENGTH_SHORT).show()
             }
         }
 

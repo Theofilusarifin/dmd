@@ -29,12 +29,12 @@ class LoginActivity : AppCompatActivity() {
 
                     if (obj.getString("status") == "success") {
                         Global.username = textUsername.text.toString()
-                        Toast.makeText(this, "Success Login", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, obj.getString("msg"), Toast.LENGTH_LONG).show()
 
                         startActivity(Intent(this, MainActivity::class.java))
                         finish()
                     } else {
-                        Toast.makeText(this, "Invalid Login", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, obj.getString("msg"), Toast.LENGTH_LONG).show()
                     }
                 },
                 Response.ErrorListener {
@@ -49,7 +49,6 @@ class LoginActivity : AppCompatActivity() {
                     return params
                 }
             }
-
             queue.add(stringRequest)
         }
 
