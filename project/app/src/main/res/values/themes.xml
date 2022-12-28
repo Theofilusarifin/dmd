@@ -13,4 +13,28 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="TextHeader" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="fontFamily">@font/rubik_bold</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="TextSubheader" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/rubik_bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextNormal" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/rubik_medium</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/custom_light_black</item>
+    </style>
+
+    <style name="AppHeader" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="fontFamily">@font/damion</item>
+        <item name="android:textSize">48sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>
