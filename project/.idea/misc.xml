@@ -12,7 +12,7 @@
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/drawable/ic_baseline_vpn_key_24.xml" value="0.2805" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/drawable/ic_icons8_heart_100_1.xml" value="0.228" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/font/karla_bold.xml" value="0.39479166666666665" />
-        <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/activity_add_meme.xml" value="0.1" />
+        <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/activity_add_meme.xml" value="0.33" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/activity_detail_meme.xml" value="0.35625" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/activity_edit_profile.xml" value="0.41083743842364534" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/activity_login.xml" value="0.35625" />
@@ -22,7 +22,7 @@
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/fragment_leaderboard.xml" value="0.35625" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/fragment_my_creation.xml" value="0.22" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/fragment_setting.xml" value="0.35625" />
-        <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/layout_item_peringkat_default.xml" value="0.35625" />
+        <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/layout_item_peringkat_default.xml" value="0.67" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/layout_item_peringkat_emas.xml" value="0.35625" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/layout_item_peringkat_perak.xml" value="0.35625" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/layout_item_peringkat_perunggu.xml" value="0.35625" />
