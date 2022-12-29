@@ -27,7 +27,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textHeaderCreateMeme"
+                android:id="@+id/textHeaderUpdateProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:letterSpacing="0"
@@ -41,7 +41,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.utils.widget.ImageFilterButton
-                android:id="@+id/btnAddBack"
+                android:id="@+id/btnEditProfileBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -71,7 +71,7 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/btnAddMeme"
+                android:id="@+id/btnUpdateProfile"
                 style="@style/TextSubheader"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/txtAddBottomText" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txtAddImgUrl"
+                android:id="@+id/txtUpdateFirstName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -110,7 +110,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/frameLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txtImgUrl"
+                    android:id="@+id/txtFirstName"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:letterSpacing="0"
@@ -133,7 +133,7 @@
                 app:hintEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtAddTopText">
+                app:layout_constraintTop_toBottomOf="@+id/txtUpdateLastName">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txtBottomText"
@@ -145,7 +145,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txtAddTopText"
+                android:id="@+id/txtUpdateLastName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -159,10 +159,10 @@
                 app:hintEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtAddImgUrl">
+                app:layout_constraintTop_toBottomOf="@+id/txtUpdateFirstName">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txtTopText"
+                    android:id="@+id/txtLastName"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:letterSpacing="0"

@@ -37,7 +37,7 @@ class MemelistAdapter(val listMemes:ArrayList<Memes>)
         holder.v.tv_user_like.text = listMemes[position].total_like.toString() + " Likes"
 //        Check button like
         if (listMemes[position].liked) {
-            holder.v.btn_user_like.setImageResource(R.drawable.like_filled);
+            holder.v.btn_user_like.setImageResource(R.drawable.like_filled)
         }
 
 //        Button Like

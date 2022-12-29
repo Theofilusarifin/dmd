@@ -23,7 +23,7 @@ class RegisterActivity : AppCompatActivity() {
                 canRegister = false
                 Toast.makeText(this, "Please fill your first name!", Toast.LENGTH_SHORT).show()
             }
-            if (txtTopText.text.toString() != null) {
+            if (txtLastName.text.toString() != null) {
                 canRegister = false
                 Toast.makeText(this, "Please fill your username!", Toast.LENGTH_SHORT).show()
             }
@@ -53,9 +53,9 @@ class RegisterActivity : AppCompatActivity() {
 
 //                        Save user detail into global variable
                             Global.user_id = obj.getInt("user_id")
-                            Global.username = txtTopText.text.toString()
+                            Global.username = txtLastName.text.toString()
                             Global.firstName = txtBottomText.text.toString()
-                            Global.lastName = txtImgUrl.text.toString()
+                            Global.lastName = txtFirstName.text.toString()
                             Global.urlImg = ""
                             Global.privacySetting = 0
 
@@ -71,10 +71,10 @@ class RegisterActivity : AppCompatActivity() {
                 ) {
                     override fun getParams(): MutableMap<String, String> {
                         val params = HashMap<String, String>()
-                        params["username"] = txtTopText.text.toString()
+                        params["username"] = txtLastName.text.toString()
                         params["password"] = txtPassword.text.toString()
                         params["first_name"] = txtBottomText.text.toString()
-                        params["last_name"] = txtImgUrl.text.toString()
+                        params["last_name"] = txtFirstName.text.toString()
 
                         return params
                     }

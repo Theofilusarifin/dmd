@@ -25,7 +25,7 @@ if (isset($_POST['user_id']) && isset($_POST['first_name']) && isset($_POST['pri
     if ($stmt->execute()) {
         // Update successful
         $status = 'success';
-        $msg = "Update profile succesful";
+        $msg = "Update profile successful!";
     } else {
         $status = 'error';
         $msg = "Update profile failed!";

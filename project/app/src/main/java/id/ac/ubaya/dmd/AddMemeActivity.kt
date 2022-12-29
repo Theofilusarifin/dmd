@@ -1,6 +1,5 @@
 package id.ac.ubaya.dmd
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -18,7 +17,7 @@ class AddMemeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_meme)
 
 //        Button Add Meme
-        btnAddMeme.setOnClickListener{
+        btnUpdateProfile.setOnClickListener{
             val queue = Volley.newRequestQueue(this)
 //            IP Arifin
             val url = "http://192.168.100.37/dmd/api/add_meme.php"
@@ -30,7 +29,7 @@ class AddMemeActivity : AppCompatActivity() {
                     val obj = JSONObject(it)
                     if (obj.getString("status") == "success") {
                         Toast.makeText(this, obj.getString("msg"), Toast.LENGTH_LONG).show()
-                        //Kalau berhasil balik ke playlist fragment
+                        //Kalau berhasil balik ke home fragment
                         finish()
                     } else {
                         Toast.makeText(this, obj.getString("msg"), Toast.LENGTH_LONG).show()
@@ -46,8 +45,8 @@ class AddMemeActivity : AppCompatActivity() {
                 override fun getParams(): MutableMap<String, String> {
                     val params = HashMap<String, String>()
                     params["user_id"] = Global.user_id.toString()
-                    params["url_img"] = txtImgUrl.text.toString() ?: ""
-                    params["top_text"] = txtTopText.text.toString() ?: ""
+                    params["url_img"] = txtFirstName.text.toString() ?: ""
+                    params["top_text"] = txtLastName.text.toString() ?: ""
                     params["bottom_text"] = txtBottomText.text.toString() ?: ""
                     return params
                 }
@@ -55,7 +54,7 @@ class AddMemeActivity : AppCompatActivity() {
             queue.add(stringRequest)
         }
 
-        btnAddBack.setOnClickListener{
+        btnEditProfileBack.setOnClickListener{
             finish()
         }
     }
