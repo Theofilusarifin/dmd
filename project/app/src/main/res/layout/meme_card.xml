@@ -33,7 +33,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/iv_meme"
+                    android:id="@+id/iv_meme_preview"
                     android:layout_width="match_parent"
                     android:layout_height="270dp"
                     android:contentDescription="@string/meme_picture"
@@ -41,7 +41,7 @@
                     tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
                 <TextView
-                    android:id="@+id/tv_meme_top_text"
+                    android:id="@+id/tv_preview_top"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="16dp"
@@ -60,7 +60,7 @@
                     tools:ignore="TextContrastCheck" />
 
                 <TextView
-                    android:id="@+id/tv_meme_bottom_text"
+                    android:id="@+id/tv_preview_bottom"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="16dp"

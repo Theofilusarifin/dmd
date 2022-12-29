@@ -1,7 +1,6 @@
 package id.ac.ubaya.dmd
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,6 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONObject
 
 class MemelistAdapter(val listMemes:ArrayList<Memes>)
@@ -33,9 +31,9 @@ class MemelistAdapter(val listMemes:ArrayList<Memes>)
     ) {
 //        Get Memes data
         val url = listMemes[position].url_img
-        Picasso.get().load(url).into(holder.v.iv_meme)
-        holder.v.tv_meme_top_text.text = listMemes[position].top_text
-        holder.v.tv_meme_bottom_text.text = listMemes[position].bottom_text
+        Picasso.get().load(url).into(holder.v.iv_meme_preview)
+        holder.v.tv_preview_top.text = listMemes[position].top_text
+        holder.v.tv_preview_bottom.text = listMemes[position].bottom_text
         holder.v.tv_like.text = listMemes[position].total_like.toString() + " Likes"
 //        Check button like
         if (listMemes[position].liked) {
