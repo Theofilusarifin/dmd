@@ -10,6 +10,7 @@ if ($mysqli->connect_errno) {
 // Default Status and Message
 $status = 'error';
 $msg = 'Register error!';
+$user_id = 0;
 
 if (isset($_POST['username']) && isset($_POST['first_name']) && isset($_POST['password'])) {
     $username = $_POST['username'];
@@ -34,6 +35,7 @@ if (isset($_POST['username']) && isset($_POST['first_name']) && isset($_POST['pa
             // Insert successful
             $status = 'success';
             $msg = "Registration succesful!";
+            $user_id = $mysqli->insert_id;
         } else {
             $status = 'error';
             $msg = "Registration failed!";
@@ -49,6 +51,6 @@ if (isset($_POST['username']) && isset($_POST['first_name']) && isset($_POST['pa
 // Return Json
 echo json_encode(array(
     "status" => $status,
-    "msg" => $msg, 
-
+    "msg" => $msg,
+    "user_id" => $user_id,
 ));

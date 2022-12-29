@@ -1,7 +1,10 @@
 package id.ac.ubaya.dmd
 
 object Global {
-    var username = ""
-    var firstName = ""
-    var lastName = ""
+    var user_id:Int = 0
+    var username:String = ""
+    var firstName:String = ""
+    var lastName:String = ""
+    var urlImg:String = ""
+    var privacySetting:Int = 0
 }

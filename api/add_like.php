@@ -21,7 +21,7 @@ if (isset($_POST['user_id']) && isset($_POST['meme_id'])) {
     if ($stmt->execute()) {
         // Insert successful
         $status = 'success';
-        $msg = "Add like succesful";
+        $msg = "Add like succesful!";
     } else {
         $status = 'error';
         $msg = "Add like failed!";

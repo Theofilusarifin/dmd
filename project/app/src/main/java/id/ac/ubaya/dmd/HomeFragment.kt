@@ -8,22 +8,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
+import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import org.json.JSONObject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() {
 //  Declare ArrayList of Memes
     var memelist:ArrayList<Memes> = ArrayList()
@@ -51,46 +46,50 @@ class HomeFragment : Fragment() {
     }
 
     fun getMemelist(){
+        val queue = Volley.newRequestQueue(activity)
+//        IP Arifin
+        val url = "http://192.168.100.37/dmd/api/get_memes.php"
         memelist = ArrayList()
-        var meme1 = Memes(1,"Top Text", "Bottom Text", "https://www.generatormix.com/images/meme/stahp.jpg", 1,1,5, "2022-12-25 00:48:00")
-        var meme2 = Memes(2,"Coba Top Text", "Coba Bottom Text", "https://www.generatormix.com/images/meme/stahp.jpg", 1,1, 5,"2022-12-25 00:48:00")
-        var meme3 = Memes(3,"Panjang Banget Top Text", "Panjang Banget Bottom Text", "http://pm1.narvii.com/5734/a7a08ce9ba236846588115fdd09f3f8d733d0850_00.jpg", 1,1,5, "2022-12-25 00:48:00")
-        memelist.add(meme1)
-        memelist.add(meme2)
-        memelist.add(meme3)
-        updateMemelist()
-//        val q = Volley.newRequestQueue(activity)
-        //Harusnya pakai 10.0.2.2 bisa asalkan di emulator android studio
-        //192.168.43.237
-//        val url = "http://192.168.43.237/mobile_db/get_playlist.php"
-//        TEMPLATE BUAT JALANIN API
-//        var stringRequest = StringRequest(
-//            Request.Method.GET, url,
-//            {
-//                Log.d("volley_sukses", it)
-//                val obj = JSONObject(it)
-//                if(obj.getString("result") == "OK"){
-//                    val data = obj.getJSONArray("data")
-//                    for (i in 0 until data.length()){
-//                        val memeObject = data.getJSONObject(i)
-//                        val meme = Memes(
-//                            memeObject.getInt("id"),
-//                            memeObject.getString("top_text"),
-//                            memeObject.getString("bottom_text"),
-//                            memeObject.getString("url_img"),
-//                            memeObject.getInt("num_likes"),
-//                            memeObject.getInt("num_reports")
-//                        )
-//                        memelist.add(meme)
-//                    }
-////                    Log.d("cekisiarray", playlists.toString())
-//                    updateMemelist()
-//                }
-//            },
-//            {
-//                Log.e("volley_gagal", it.message.toString())
-//            })
-//        q.add(stringRequest)
+
+        val stringRequest = object : StringRequest(
+            Request.Method.POST,
+            url,
+            Response.Listener {
+                val obj = JSONObject(it)
+
+                if (obj.getString("status") == "success") {
+                    val memes = obj.getJSONArray("memes")
+                    for (i in 0 until memes.length()){
+                        val memeObject = memes.getJSONObject(i)
+                        val meme = Memes(
+                            memeObject.getInt("id"),
+                            memeObject.getInt("user_id"),
+                            memeObject.getString("url_img"),
+                            memeObject.getString("top_text"),
+                            memeObject.getString("bottom_text"),
+                            memeObject.getInt("total_like"),
+                            memeObject.getBoolean("liked")
+                        )
+                        memelist.add(meme)
+                    }
+//                    Update Meme
+                    updateMemelist()
+                } else {
+                    Toast.makeText(activity, obj.getString("msg"), Toast.LENGTH_LONG).show()
+                }
+            },
+            Response.ErrorListener {
+                Toast.makeText(activity, "Error Get Memes", Toast.LENGTH_SHORT).show()
+                Log.e("Gagal", it.toString())
+            }
+        ) {
+            override fun getParams(): MutableMap<String, String> {
+                val params = HashMap<String, String>()
+                params["user_id"] = Global.user_id.toString()
+                return params
+            }
+        }
+        queue.add(stringRequest)
     }
 
     fun updateMemelist() {
@@ -107,15 +106,6 @@ class HomeFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             HomeFragment().apply {

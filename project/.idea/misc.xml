@@ -3,17 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/drawable/bg_bronze.xml" value="0.228" />
+        <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/drawable/bg_default.xml" value="0.228" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/drawable/ic_baseline_chat_24.xml" value="0.3215" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/drawable/ic_baseline_create_24.xml" value="0.3215" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.3215" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.2805" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/drawable/ic_baseline_vpn_key_24.xml" value="0.2805" />
+        <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/drawable/ic_icons8_heart_100_1.xml" value="0.228" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/font/karla_bold.xml" value="0.39479166666666665" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/activity_add_meme.xml" value="0.35625" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/activity_detail_meme.xml" value="0.35625" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/activity_login.xml" value="0.35625" />
-        <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/activity_register.xml" value="0.33" />
+        <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/fragment_home.xml" value="0.22" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/fragment_leaderboard.xml" value="0.35625" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/fragment_my_creation.xml" value="0.35625" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/fragment_setting.xml" value="0.35625" />

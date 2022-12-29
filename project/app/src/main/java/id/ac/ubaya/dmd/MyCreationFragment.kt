@@ -36,14 +36,14 @@ class MyCreationFragment : Fragment() {
     }
 
     fun getMemelist(){
-        usermemelist = ArrayList()
-        var meme1 = Memes(1,"Top Text", "Bottom Text", "https://www.generatormix.com/images/meme/stahp.jpg", 1,1, 5,"2022-12-25 00:48:00")
-        var meme2 = Memes(2,"Coba Top Text", "Coba Bottom Text", "https://www.generatormix.com/images/meme/stahp.jpg", 1,1, 5,"2022-12-25 00:48:00")
-        var meme3 = Memes(3,"Panjang Banget Top Text", "Panjang Banget Bottom Text", "https://www.generatormix.com/images/meme/stahp.jpg", 1,1, 5,"2022-12-25 00:48:00")
-        usermemelist.add(meme1)
-        usermemelist.add(meme2)
-        usermemelist.add(meme3)
-        updateMemelist()
+//        usermemelist = ArrayList()
+//        var meme1 = Memes(1,"Top Text", "Bottom Text", "https://www.generatormix.com/images/meme/stahp.jpg", 1,1, 5,"2022-12-25 00:48:00")
+//        var meme2 = Memes(2,"Coba Top Text", "Coba Bottom Text", "https://www.generatormix.com/images/meme/stahp.jpg", 1,1, 5,"2022-12-25 00:48:00")
+//        var meme3 = Memes(3,"Panjang Banget Top Text", "Panjang Banget Bottom Text", "https://www.generatormix.com/images/meme/stahp.jpg", 1,1, 5,"2022-12-25 00:48:00")
+//        usermemelist.add(meme1)
+//        usermemelist.add(meme2)
+//        usermemelist.add(meme3)
+//        updateMemelist()
 //        val q = Volley.newRequestQueue(activity)
         //Harusnya pakai 10.0.2.2 bisa asalkan di emulator android studio
         //192.168.43.237
@@ -92,15 +92,6 @@ class MyCreationFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MyCreationFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             MyCreationFragment().apply {

@@ -19,6 +19,7 @@ class LoginActivity : AppCompatActivity() {
 
         buttonLogin.setOnClickListener {
             val queue = Volley.newRequestQueue(this)
+//            IP Arifin
             val url = "http://192.168.100.37/dmd/api/login.php"
 
             val stringRequest = object : StringRequest(
@@ -28,8 +29,18 @@ class LoginActivity : AppCompatActivity() {
                     val obj = JSONObject(it)
 
                     if (obj.getString("status") == "success") {
-                        Global.username = textUsername.text.toString()
-                        Toast.makeText(this, obj.getString("msg"), Toast.LENGTH_LONG).show()
+//                        Get user Detail
+                        val userDetail = JSONObject(obj.getString("user"))
+
+//                        Save user detail into global variable
+                        Global.user_id = userDetail.getInt("id")
+                        Global.username = userDetail.getString("username")
+                        Global.firstName = userDetail.getString("first_name")
+                        Global.lastName = userDetail.getString("last_name")
+                        Global.urlImg = userDetail.getString("url_img")
+                        Global.privacySetting = userDetail.getInt("privacy_setting")
+
+                        Toast.makeText(this, obj.getString("msg") + " - " + Global.user_id, Toast.LENGTH_LONG).show()
 
                         startActivity(Intent(this, MainActivity::class.java))
                         finish()

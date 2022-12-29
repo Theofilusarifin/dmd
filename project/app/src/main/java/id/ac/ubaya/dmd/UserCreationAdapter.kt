@@ -24,8 +24,8 @@ class UserCreationAdapter(val listMemes:ArrayList<Memes>)
         Picasso.get().load(url).into(holder.v.iv_meme2)
         holder.v.tv_meme_top_text2.text = listMemes[position].top_text
         holder.v.tv_meme_bottom_text2.text = listMemes[position].bottom_text
-        holder.v.tv_likes.text = listMemes[position].num_likes.toString() + " Likes"
-        holder.v.tv_comments.text = listMemes[position].num_comments.toString() + " Comments"
+        holder.v.tv_likes.text = listMemes[position].total_like.toString() + " Likes"
+//        holder.v.tv_comments.text = listMemes[position].num_comments.toString() + " Comments"
 
 //        TEMPLATE BUAT BTN LIKE DAN BTN DETAIL
 //        holder.v.btn_like.setOnClickListener{

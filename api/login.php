@@ -10,6 +10,7 @@ if ($mysqli->connect_errno) {
 // Default Status and Message
 $status = 'error';
 $msg = 'Login error!';
+$user = null;
 
 if (isset($_POST['username']) && isset($_POST['password'])) {
     $username = $_POST['username'];
@@ -32,7 +33,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     else {
         $status = 'success';
         $msg = 'Login successful!';
-        $privacy = $row['privacy_setting'];
+        $user = $row;
     }
 }
 
@@ -40,4 +41,5 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 echo json_encode(array(
     "status" => $status,
     "msg" => $msg,
+    "user" => $user,
 ));

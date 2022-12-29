@@ -54,10 +54,11 @@ if (isset($_POST['user_id'])) {
     }
     // Set success status 
     $status = 'success';
-    $msg = $memes;
+    $msg = 'Get memes successful!';
 }
 // Return Json
 echo json_encode(array(
     "status" => $status,
     "msg" => $msg,
+    "memes" => $memes,
 ));

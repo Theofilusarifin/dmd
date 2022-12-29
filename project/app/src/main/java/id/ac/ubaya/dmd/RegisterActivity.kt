@@ -17,8 +17,29 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
 
         btnDaftar.setOnClickListener {
+//            Registration Checking
+            var canRegister = true
+            if (txtFirstName.text.toString() != null) {
+                canRegister = false
+                Toast.makeText(this, "Please fill your first name!", Toast.LENGTH_SHORT).show()
+            }
+            if (txtUsername.text.toString() != null) {
+                canRegister = false
+                Toast.makeText(this, "Please fill your username!", Toast.LENGTH_SHORT).show()
+            }
+            if (txtPassword.text.toString() != null) {
+                canRegister = false
+                Toast.makeText(this, "Please fill your password!", Toast.LENGTH_SHORT).show()
+            }
             if (txtPassword.text.toString() == txtConfirmPassword.text.toString()) {
+                canRegister = false
+                Toast.makeText(this, "Password does not match!", Toast.LENGTH_SHORT).show()
+            }
+
+//            If all requirement are completed then do registration
+            if (canRegister){
                 val queue = Volley.newRequestQueue(this)
+//                Ip Arifin
                 val url = "http://192.168.100.37/dmd/api/register.php"
 
                 val stringRequest = object : StringRequest(
@@ -29,6 +50,14 @@ class RegisterActivity : AppCompatActivity() {
 
                         if (obj.getString("status") == "success") {
                             Toast.makeText(this, obj.getString("msg"), Toast.LENGTH_LONG).show()
+
+//                        Save user detail into global variable
+                            Global.user_id = obj.getInt("user_id")
+                            Global.username = txtUsername.text.toString()
+                            Global.firstName = txtFirstName.text.toString()
+                            Global.lastName = txtLastName.text.toString()
+                            Global.urlImg = ""
+                            Global.privacySetting = 0
 
                             finish()
                         } else {
@@ -50,10 +79,7 @@ class RegisterActivity : AppCompatActivity() {
                         return params
                     }
                 }
-
                 queue.add(stringRequest)
-            } else {
-                Toast.makeText(this, "Password does not match!", Toast.LENGTH_SHORT).show()
             }
         }
 
