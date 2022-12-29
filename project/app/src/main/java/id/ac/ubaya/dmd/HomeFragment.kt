@@ -95,7 +95,7 @@ class HomeFragment : Fragment() {
         queue.add(stringRequest)
     }
 
-    fun updateMemelist() {
+    public fun updateMemelist() {
         val lm: LinearLayoutManager = LinearLayoutManager(activity)
         var recyclerView = view?.findViewById<RecyclerView>(R.id.rv_listofmemes)
         recyclerView?.layoutManager = lm

@@ -106,17 +106,9 @@ class MemelistAdapter(val listMemes:ArrayList<Memes>)
                     val obj = JSONObject(it)
                     if (obj.getString("status") == "success") {
 //                        Show Msg
-                        Toast.makeText(
-                            holder.v.context,
-                            obj.getString("msg"),
-                            Toast.LENGTH_LONG
-                        ).show()
+                        Toast.makeText(holder.v.context,obj.getString("msg"), Toast.LENGTH_LONG).show()
                     } else {
-                        Toast.makeText(
-                            holder.v.context,
-                            obj.getString("msg"),
-                            Toast.LENGTH_LONG
-                        ).show()
+                        Toast.makeText(holder.v.context,obj.getString("msg"), Toast.LENGTH_LONG).show()
                     }
                 },
                 Response.ErrorListener {

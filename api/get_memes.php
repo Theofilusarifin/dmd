@@ -30,6 +30,22 @@ if (isset($_POST['user_id'])) {
         }
     }
 
+    // Get meme id that already reported by login user
+    $sql = "SELECT meme_id FROM reports WHERE user_id = ?";
+    $stmt = $mysqli->prepare($sql);
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $res = $stmt->get_result();
+
+    $meme_reported_id = [];
+    // If there is memes that reported by login user
+    if ($res->num_rows > 0) {
+        while ($row = $res->fetch_assoc()) {
+            // Store the meme id in array
+            array_push($meme_reported_id, $row['meme_id']);
+        }
+    }
+
     // Get all meme detail
     $sql = "SELECT m.*, count(l.meme_id) as total_like FROM memes m LEFT JOIN likes l on m.id = l.meme_id GROUP BY m.id ORDER BY id DESC";
     $stmt = $mysqli->prepare($sql);
@@ -54,22 +70,25 @@ if (isset($_POST['user_id'])) {
         $row2 = $res2->fetch_assoc();
         $row3 = $res3->fetch_assoc();
 
-        // if meme is already liked by user, set liked to true so user can not like it again
-        $liked = (in_array($row['id'], $meme_liked_id)) ? true : false;
-        // Store meme details to array
-        $meme = array(
-            "id" => $row['id'],
-            "user_id" => $row['user_id'],
-            "url_img" => $row['url_img'],
-            "top_text" => $row['top_text'],
-            "bottom_text" => $row['bottom_text'],
-            "created_at" => $row['created_at'],
-            "total_like" => $row['total_like'],
-            "total_report" => $row2['total_report'],
-            "total_comment" => $row3['total_comment'],
-            "liked" => $liked
-        );
-        $memes[] = $meme;
+        // If meme is not reported the display the meme
+        if (!in_array($row['id'], $meme_reported_id)){
+            // if meme is already liked by user, set liked to true so user can not like it again
+            $liked = (in_array($row['id'], $meme_liked_id)) ? true : false;
+            // Store meme details to array
+            $meme = array(
+                "id" => $row['id'],
+                "user_id" => $row['user_id'],
+                "url_img" => $row['url_img'],
+                "top_text" => $row['top_text'],
+                "bottom_text" => $row['bottom_text'],
+                "created_at" => $row['created_at'],
+                "total_like" => $row['total_like'],
+                "total_report" => $row2['total_report'],
+                "total_comment" => $row3['total_comment'],
+                "liked" => $liked
+            );
+            $memes[] = $meme;
+        }
     }
     // Set success status 
     $status = 'success';
