@@ -1,22 +1,57 @@
 package id.ac.ubaya.dmd
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.layout_item_peringkat_emas.view.*
+import kotlinx.android.synthetic.main.layout_item_peringkat_default.view.*
 
-class LeaderboardAdapter (val list: MutableList<Users>): RecyclerView.Adapter<LeaderboardAdapter.GameViewHolder>() {
+class LeaderboardAdapter (val list: MutableList<Leaderboards>): RecyclerView.Adapter<LeaderboardAdapter.GameViewHolder>() {
 
     class GameViewHolder(val v: View): RecyclerView.ViewHolder(v){
         // PENGATURAN VIEWNYA DENGAN CLASS USERS
-        fun bindItem(isi: Users){
-            val url = isi.url_img
+        @SuppressLint("SetTextI18n")
+        fun bindItem(user: Leaderboards){
+//            Get Image
+            val url = user.url_img
             Picasso.get().load(url).into(itemView.profile_image)
-            itemView.tv_leaderboard_name.text = "${isi.username}"
-//            GET TOTAL LIKE
-//            itemView.btn_display_like.text = "${isi.}"
+
+            val firstName = user.first_name
+            val lastName = user.last_name
+
+//            Check privacy
+            var i = 0
+            if (user.privacy_setting == 1){
+                var fullName = ""
+                for (ch in firstName.iterator()) {
+                    if (i < 3){
+                        fullName += ch
+                    }
+                    else{
+                        fullName += "*"
+                    }
+                    i++
+                }
+                fullName += " "
+                for (ch in lastName.iterator()) {
+                    if (i < 3){
+                        fullName += ch
+                    }
+                    else{
+                        fullName += "*"
+                    }
+                    i++
+                }
+                itemView.tv_leaderboard_name.text = fullName
+            }
+            else{
+                itemView.tv_leaderboard_name.text = firstName + " " + lastName
+            }
+
+//            Set total like
+            itemView.tv_total_likes.text = user.total_like.toString()
         }
     }
 

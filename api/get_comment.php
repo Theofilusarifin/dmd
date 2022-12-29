@@ -9,6 +9,7 @@ if ($mysqli->connect_errno) {
 // Default Status and Message
 $status = 'error';
 $msg = 'Get comment error!';
+$comments = [];
 
 if (isset($_POST['meme_id'])) {
     // Get passed variable
@@ -21,7 +22,6 @@ if (isset($_POST['meme_id'])) {
     $stmt->execute();
     $res = $stmt->get_result();
 
-    $comments = [];
     while ($row = $res->fetch_assoc()) {
         // Store comment details to array
         $comment = array(
@@ -36,11 +36,12 @@ if (isset($_POST['meme_id'])) {
     }
     // Set success status 
     $status = 'success';
-    $msg = $comments;
+    $msg = "Get comment successful!";
 }
 
 // Return Json
 echo json_encode(array(
     "status" => $status,
     "msg" => $msg,
+    "comments" => $comments,
 ));
