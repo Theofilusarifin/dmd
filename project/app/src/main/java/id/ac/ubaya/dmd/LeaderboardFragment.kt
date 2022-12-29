@@ -34,16 +34,16 @@ class LeaderboardFragment : Fragment() {
     }
 
     fun getTopUser(){
-        userlist =  mutableListOf<Users>()
-        var user1 = Users(1,"Snahfu", "Hans", "Wirjawan", "12345678", "2022-12-25 00:48:00", "http://pm1.narvii.com/5734/a7a08ce9ba236846588115fdd09f3f8d733d0850_00.jpg", false)
-        var user2 = Users(2,"TheofilArifin", "Theofilus", "Arifin", "12345678", "2022-12-25 00:48:00", "http://pm1.narvii.com/5734/a7a08ce9ba236846588115fdd09f3f8d733d0850_00.jpg", false)
-        var user3 = Users(3,"GregAlvin", "Gregorius", "Alvin", "12345678", "2022-12-25 00:48:00", "http://pm1.narvii.com/5734/a7a08ce9ba236846588115fdd09f3f8d733d0850_00.jpg", false)
-        var user4 = Users(4,"Newbie", "Namanya", "Newbie", "12345678", "2022-12-25 00:48:00", "http://pm1.narvii.com/5734/a7a08ce9ba236846588115fdd09f3f8d733d0850_00.jpg", false)
-        userlist.add(user1)
-        userlist.add(user2)
-        userlist.add(user3)
-        userlist.add(user4)
-        updateLeaderboard()
+//        userlist =  mutableListOf<Users>()
+//        var user1 = Users(1,"Snahfu", "Hans", "Wirjawan", "12345678", "2022-12-25 00:48:00", "http://pm1.narvii.com/5734/a7a08ce9ba236846588115fdd09f3f8d733d0850_00.jpg", false)
+//        var user2 = Users(2,"TheofilArifin", "Theofilus", "Arifin", "12345678", "2022-12-25 00:48:00", "http://pm1.narvii.com/5734/a7a08ce9ba236846588115fdd09f3f8d733d0850_00.jpg", false)
+//        var user3 = Users(3,"GregAlvin", "Gregorius", "Alvin", "12345678", "2022-12-25 00:48:00", "http://pm1.narvii.com/5734/a7a08ce9ba236846588115fdd09f3f8d733d0850_00.jpg", false)
+//        var user4 = Users(4,"Newbie", "Namanya", "Newbie", "12345678", "2022-12-25 00:48:00", "http://pm1.narvii.com/5734/a7a08ce9ba236846588115fdd09f3f8d733d0850_00.jpg", false)
+//        userlist.add(user1)
+//        userlist.add(user2)
+//        userlist.add(user3)
+//        userlist.add(user4)
+//        updateLeaderboard()
 //        val q = Volley.newRequestQueue(activity)
         //Harusnya pakai 10.0.2.2 bisa asalkan di emulator android studio
         //192.168.43.237

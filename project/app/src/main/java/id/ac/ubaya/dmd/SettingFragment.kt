@@ -1,5 +1,7 @@
 package id.ac.ubaya.dmd
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,19 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_setting.*
-import kotlinx.android.synthetic.main.layout_item_peringkat_emas.view.*
+import kotlinx.android.synthetic.main.fragment_setting.view.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
-/**
- * A simple [Fragment] subclass.
- * Use the [SettingFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SettingFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    var currentUser = ""
+    var currentUser = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -34,13 +27,32 @@ class SettingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_setting, container, false)
+        val v:View = inflater.inflate(R.layout.fragment_setting, container, false)
+        // Inflate the layout for this fragment
+
+        // Siapin listener buat klo button fabnya diclick (Membuka activity baru)
+        v.fabEditProfile.setOnClickListener {
+            val parentActivity: Activity? = activity
+            val intent = Intent(parentActivity, EditProfileActivity::class.java)
+            requireActivity().startActivity(intent)
+        }
+        return v
     }
 
     fun getCurrentUser(){
-        currentUser = ""
-        var user = Users(1,"Snahfu", "Hans", "Wirjawan", "12345678", "2022-12-25 00:48:00", "http://pm1.narvii.com/5734/a7a08ce9ba236846588115fdd09f3f8d733d0850_00.jpg", false)
-        updateUserSetting(user)
+//        Define User
+        currentUser = null
+        var user = Users(
+            Global.user_id,
+            Global.username,
+            Global.firstName,
+            Global.lastName,
+            Global.password,
+            Global.registrationDate,
+            Global.urlImg,
+            Global.privacySetting,
+            )
+//        updateUserSetting(user)
 //        val q = Volley.newRequestQueue(activity)
         //Harusnya pakai 10.0.2.2 bisa asalkan di emulator android studio
         //192.168.43.237
@@ -75,30 +87,29 @@ class SettingFragment : Fragment() {
 //        q.add(stringRequest)
     }
 
-    fun updateUserSetting(users: Users) {
-        val url = users.url_img
-        Picasso.get().load(url).into(user_profile_image)
-        tv_profile_fullname.text = "${users.first_name} ${users.last_name}"
-        tv_profile_registerdate.text = "${users.registration_date}"
-        tv_profile_username.text = "${users.username}"
-        chk_box_privacy.isChecked = users.privacy
-    }
+//    fun updateUserSetting(users: Users) {
+//        val url = users.url_img
+//        Picasso.get().load(url).into(user_profile_image)
+//        tv_profile_fullname.text = "${users.first_name} ${users.last_name}"
+//        tv_profile_registerdate.text = "${users.registration_date}"
+//        tv_profile_username.text = "${users.username}"
+//        chk_box_privacy.isChecked = users.privacy
+//    }
 
     override fun onResume() {
         super.onResume()
-        getCurrentUser()
+//        Set login user
+        txtProfileName.text = Global.firstName + " " + Global.lastName
+        txtProfileUsername.text = "@" + Global.username
+        if (Global.privacySetting == 1){
+            txtProfileTypeAccount.text = "Private Account"
+        }
+        else{
+            txtProfileTypeAccount.text = "Public Account"
+        }
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SettingFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             SettingFragment().apply {

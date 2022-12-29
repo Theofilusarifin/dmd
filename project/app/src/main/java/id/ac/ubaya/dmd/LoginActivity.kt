@@ -37,10 +37,12 @@ class LoginActivity : AppCompatActivity() {
                         Global.username = userDetail.getString("username")
                         Global.firstName = userDetail.getString("first_name")
                         Global.lastName = userDetail.getString("last_name")
+                        Global.password = userDetail.getString("password")
+                        Global.registrationDate = userDetail.getString("registration_date")
                         Global.urlImg = userDetail.getString("url_img")
                         Global.privacySetting = userDetail.getInt("privacy_setting")
 
-                        Toast.makeText(this, obj.getString("msg") + " - ID: " + Global.user_id, Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, obj.getString("msg") + " ID: " + Global.user_id, Toast.LENGTH_LONG).show()
 
                         startActivity(Intent(this, MainActivity::class.java))
                         finish()
