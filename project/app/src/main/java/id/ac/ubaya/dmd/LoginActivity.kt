@@ -1,6 +1,8 @@
 package id.ac.ubaya.dmd
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +18,24 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        val sharedFile = "id.ac.ubaya.dmd"
+        val shared: SharedPreferences = getSharedPreferences(sharedFile, Context.MODE_PRIVATE)
+//        Retrieve Shared Preference
+        val savedUserId = shared.getInt("id", 0)
+//        If there is data login
+        if (savedUserId != 0){
+            Global.user_id = shared.getInt("id", 0)
+            Global.username = shared.getString("username", "").toString()
+            Global.firstName = shared.getString("firstName", "").toString()
+            Global.lastName = shared.getString("lastName", "").toString()
+            Global.password = shared.getString("password", "").toString()
+            Global.registrationDate = shared.getString("registrationDate", "").toString()
+            Global.urlImg = shared.getString("urlImg", "").toString()
+            Global.privacySetting = shared.getInt("privacySetting", 0)
+
+            startActivity(Intent(this, MainActivity::class.java))
+        }
 
         buttonLogin.setOnClickListener {
             val queue = Volley.newRequestQueue(this)
@@ -42,8 +62,20 @@ class LoginActivity : AppCompatActivity() {
                         Global.urlImg = userDetail.getString("url_img")
                         Global.privacySetting = userDetail.getInt("privacy_setting")
 
-                        Toast.makeText(this, obj.getString("msg") + " ID: " + Global.user_id, Toast.LENGTH_LONG).show()
+//                        put User Detail into Shared Preference
+                        val editor: SharedPreferences.Editor = shared.edit()
+                        editor.putInt("id", Global.user_id)
+                        editor.putString("username", Global.username)
+                        editor.putString("firstName", Global.firstName)
+                        editor.putString("lastName", Global.lastName)
+                        editor.putString("password", Global.password)
+                        editor.putString("registrationDate", Global.registrationDate)
+                        editor.putString("urlImg", Global.urlImg)
+                        editor.putInt("privacySetting", Global.privacySetting)
+                        editor.apply()
 
+                        Toast.makeText(this, obj.getString("msg") + " ID: " + Global.user_id, Toast.LENGTH_LONG).show()
+//                        Go to Home
                         startActivity(Intent(this, MainActivity::class.java))
                         finish()
                     } else {
