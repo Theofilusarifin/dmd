@@ -67,7 +67,10 @@ class HomeFragment : Fragment() {
                             memeObject.getString("url_img"),
                             memeObject.getString("top_text"),
                             memeObject.getString("bottom_text"),
+                            memeObject.getString("created_at"),
                             memeObject.getInt("total_like"),
+                            memeObject.getInt("total_report"),
+                            memeObject.getInt("total_comment"),
                             memeObject.getBoolean("liked")
                         )
                         memelist.add(meme)

@@ -32,7 +32,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     // There is data that matched 
     else {
         $status = 'success';
-        $msg = 'Login successful!';
+        $msg = 'Login successful';
         $user = $row;
     }
 }

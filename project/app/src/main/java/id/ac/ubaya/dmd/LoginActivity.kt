@@ -40,7 +40,7 @@ class LoginActivity : AppCompatActivity() {
                         Global.urlImg = userDetail.getString("url_img")
                         Global.privacySetting = userDetail.getInt("privacy_setting")
 
-                        Toast.makeText(this, obj.getString("msg") + " - " + Global.user_id, Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, obj.getString("msg") + " - ID: " + Global.user_id, Toast.LENGTH_LONG).show()
 
                         startActivity(Intent(this, MainActivity::class.java))
                         finish()

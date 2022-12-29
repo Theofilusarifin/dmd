@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.meme_card.view.*
 import kotlinx.android.synthetic.main.user_meme_card.view.*
 
 class UserCreationAdapter(val listMemes:ArrayList<Memes>)
@@ -20,12 +19,14 @@ class UserCreationAdapter(val listMemes:ArrayList<Memes>)
     }
 
     override fun onBindViewHolder(holder: UserCreationViewHolder, @SuppressLint("RecyclerView") position: Int) {
+        //        Get Memes data
         val url = listMemes[position].url_img
-        Picasso.get().load(url).into(holder.v.iv_meme2)
-        holder.v.tv_meme_top_text2.text = listMemes[position].top_text
-        holder.v.tv_meme_bottom_text2.text = listMemes[position].bottom_text
-        holder.v.tv_likes.text = listMemes[position].total_like.toString() + " Likes"
-//        holder.v.tv_comments.text = listMemes[position].num_comments.toString() + " Comments"
+        Picasso.get().load(url).into(holder.v.iv_user_meme_preview)
+        holder.v.tv_user_preview_top.text = listMemes[position].top_text
+        holder.v.tv_user_preview_bottom.text = listMemes[position].bottom_text
+        holder.v.tv_user_like.text = listMemes[position].total_like.toString() + " Likes"
+        holder.v.tv_user_report.text = listMemes[position].total_report.toString() + " Reports"
+        holder.v.tv_user_comment.text = listMemes[position].total_comment.toString() + " Comments"
 
 //        TEMPLATE BUAT BTN LIKE DAN BTN DETAIL
 //        holder.v.btn_like.setOnClickListener{

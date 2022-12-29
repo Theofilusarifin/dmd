@@ -9,7 +9,7 @@ if ($mysqli->connect_errno) {
 // Default Status and Message
 $status = 'error';
 $msg = 'Created memes error!';
-
+$memes = [];
 if (isset($_POST['user_id'])) {
     // Get passed variable
     $user_id = $_POST['user_id'];
@@ -37,8 +37,25 @@ if (isset($_POST['user_id'])) {
     $stmt->execute();
     $res = $stmt->get_result();
 
-    $memes = [];
+    // Get all report detail
+    $sql2 = "SELECT count(r.meme_id) as total_report FROM memes m LEFT JOIN reports r on m.id = r.meme_id WHERE m.user_id = ? GROUP BY m.id ORDER BY m.id DESC";
+    $stmt2 = $mysqli->prepare($sql2);
+    $stmt2->bind_param("i", $user_id);
+    $stmt2->execute();
+    $res2 = $stmt2->get_result();
+
+    // Get all comment detail
+    $sql3 =  "SELECT count(c.meme_id) as total_comment FROM memes m LEFT JOIN comments c on m.id = c.meme_id WHERE m.user_id = ? GROUP BY m.id ORDER BY m.id DESC";
+    $stmt3 = $mysqli->prepare($sql3);
+    $stmt3->bind_param("i", $user_id);
+    $stmt3->execute();
+    $res3 = $stmt3->get_result();
+
     while ($row = $res->fetch_assoc()) {
+        // get report and comment data
+        $row2 = $res2->fetch_assoc();
+        $row3 = $res3->fetch_assoc();
+
         // if meme is already liked by user, set liked to true so user can not like it again
         $liked = (in_array($row['id'], $meme_liked_id)) ? true : false;
         // Store meme details to array
@@ -48,18 +65,22 @@ if (isset($_POST['user_id'])) {
             "url_img" => $row['url_img'],
             "top_text" => $row['top_text'],
             "bottom_text" => $row['bottom_text'],
+            "created_at" => $row['created_at'],
             "total_like" => $row['total_like'],
+            "total_report" => $row2['total_report'],
+            "total_comment" => $row3['total_comment'],
             "liked" => $liked
         );
         $memes[] = $meme;
     }
     // Set success status 
     $status = 'success';
-    $msg = $memes;
+    $msg = 'Get memes successful!';
 }
 
 // Return Json
 echo json_encode(array(
     "status" => $status,
     "msg" => $msg,
+    "memes" => $memes,
 ));

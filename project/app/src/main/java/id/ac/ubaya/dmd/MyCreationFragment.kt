@@ -1,25 +1,22 @@
 package id.ac.ubaya.dmd
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONObject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
-
-/**
- * A simple [Fragment] subclass.
- * Use the [MyCreationFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MyCreationFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    var usermemelist:ArrayList<Memes> = ArrayList()
+    var myMemeList:ArrayList<Memes> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -35,20 +32,55 @@ class MyCreationFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_my_creation, container, false)
     }
 
-    fun getMemelist(){
-//        usermemelist = ArrayList()
-//        var meme1 = Memes(1,"Top Text", "Bottom Text", "https://www.generatormix.com/images/meme/stahp.jpg", 1,1, 5,"2022-12-25 00:48:00")
-//        var meme2 = Memes(2,"Coba Top Text", "Coba Bottom Text", "https://www.generatormix.com/images/meme/stahp.jpg", 1,1, 5,"2022-12-25 00:48:00")
-//        var meme3 = Memes(3,"Panjang Banget Top Text", "Panjang Banget Bottom Text", "https://www.generatormix.com/images/meme/stahp.jpg", 1,1, 5,"2022-12-25 00:48:00")
-//        usermemelist.add(meme1)
-//        usermemelist.add(meme2)
-//        usermemelist.add(meme3)
-//        updateMemelist()
-//        val q = Volley.newRequestQueue(activity)
-        //Harusnya pakai 10.0.2.2 bisa asalkan di emulator android studio
-        //192.168.43.237
-//        val url = "http://192.168.43.237/mobile_db/get_playlist.php"
-//        TEMPLATE BUAT JALANIN API
+    fun getMyMemelist(){
+        val queue = Volley.newRequestQueue(activity)
+//        IP Arifin
+        val url = "http://192.168.100.37/dmd/api/get_created_memes.php"
+        myMemeList = ArrayList()
+
+        val stringRequest = object : StringRequest(
+            Request.Method.POST,
+            url,
+            Response.Listener {
+                val obj = JSONObject(it)
+
+                if (obj.getString("status") == "success") {
+                    val memes = obj.getJSONArray("memes")
+                    for (i in 0 until memes.length()){
+                        val memeObject = memes.getJSONObject(i)
+                        val meme = Memes(
+                            memeObject.getInt("id"),
+                            memeObject.getInt("user_id"),
+                            memeObject.getString("url_img"),
+                            memeObject.getString("top_text"),
+                            memeObject.getString("bottom_text"),
+                            memeObject.getString("created_at"),
+                            memeObject.getInt("total_like"),
+                            memeObject.getInt("total_report"),
+                            memeObject.getInt("total_comment"),
+                            memeObject.getBoolean("liked")
+                        )
+                        myMemeList.add(meme)
+                    }
+//                    Update Meme
+                    updateMemelist()
+                } else {
+                    Toast.makeText(activity, obj.getString("msg"), Toast.LENGTH_LONG).show()
+                }
+            },
+            Response.ErrorListener {
+                Toast.makeText(activity, "Error Get Memes", Toast.LENGTH_SHORT).show()
+                Log.e("Gagal", it.toString())
+            }
+        ) {
+            override fun getParams(): MutableMap<String, String> {
+                val params = HashMap<String, String>()
+                params["user_id"] = Global.user_id.toString()
+                return params
+            }
+        }
+        queue.add(stringRequest)
+
 //        var stringRequest = StringRequest(
 //            Request.Method.GET, url,
 //            {
@@ -83,12 +115,12 @@ class MyCreationFragment : Fragment() {
         var recyclerView = view?.findViewById<RecyclerView>(R.id.rv_usersmeme)
         recyclerView?.layoutManager = lm
         recyclerView?.setHasFixedSize(true)
-        recyclerView?.adapter =UserCreationAdapter(usermemelist)
+        recyclerView?.adapter = UserCreationAdapter(myMemeList)
     }
 
     override fun onResume() {
         super.onResume()
-        getMemelist()
+        getMyMemelist()
     }
 
     companion object {
