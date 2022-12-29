@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 28, 2022 at 12:52 PM
+-- Generation Time: Dec 29, 2022 at 07:31 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -35,6 +35,17 @@ CREATE TABLE `comments` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`id`, `user_id`, `meme_id`, `content`, `created_at`) VALUES
+(1, 1, 1, 'Ini commentku dari theo untuk meme 1', '2022-12-20 08:05:15'),
+(2, 3, 2, 'Ini commentku dari alvin untuk meme 2', '2022-12-20 08:05:15'),
+(3, 2, 2, 'Ini commentku dari hans untuk meme 2', '2022-12-20 08:05:15'),
+(4, 3, 1, 'Ini commentku dari alvin untuk meme 1', '2022-12-20 08:05:15'),
+(5, 3, 1, 'Test comment', '2022-12-20 08:50:53');
+
 -- --------------------------------------------------------
 
 --
@@ -45,6 +56,21 @@ CREATE TABLE `likes` (
   `user_id` int(11) NOT NULL,
   `meme_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `likes`
+--
+
+INSERT INTO `likes` (`user_id`, `meme_id`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(2, 1),
+(2, 2),
+(3, 3),
+(3, 4),
+(5, 1);
 
 -- --------------------------------------------------------
 
@@ -57,6 +83,15 @@ CREATE TABLE `like_comments` (
   `comment_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `like_comments`
+--
+
+INSERT INTO `like_comments` (`user_id`, `comment_id`) VALUES
+(1, 2),
+(1, 3),
+(2, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -66,18 +101,22 @@ CREATE TABLE `like_comments` (
 CREATE TABLE `memes` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `url_img` varchar(255) NOT NULL,
-  `creation_date` varchar(60) NOT NULL,
+  `url_img` varchar(45) NOT NULL,
   `top_text` varchar(45) NOT NULL,
-  `bottom_text` varchar(45) NOT NULL
+  `bottom_text` varchar(45) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `memes`
 --
 
-INSERT INTO `memes` (`id`, `user_id`, `url_img`, `creation_date`, `top_text`, `bottom_text`) VALUES
-(1, 1, 'https://www.generatormix.com/images/meme/stahp.jpg', '2022-12-25 00:48:00', 'Coba coba', 'Hai Hai');
+INSERT INTO `memes` (`id`, `user_id`, `url_img`, `top_text`, `bottom_text`, `created_at`) VALUES
+(1, 1, 'https://picsum.photos/200/300', 'Top Text', 'Bottom Text', '2022-12-29 08:20:19'),
+(2, 2, 'https://picsum.photos/200/300', 'Top Text 2', 'Bottom Text 2', '2022-12-29 08:20:19'),
+(3, 3, 'https://picsum.photos/200/300', 'Top Text 3', 'Bottom Text 3', '2022-12-29 08:20:19'),
+(4, 1, 'https://picsum.photos/200/300', 'Top Text', 'Bottom Text', '2022-12-29 08:20:19'),
+(5, 1, 'https://picsum.photos/200/300', 'Ini Top Text', 'Ini Bottom Text', '2022-12-29 08:20:19');
 
 -- --------------------------------------------------------
 
@@ -103,7 +142,7 @@ CREATE TABLE `users` (
   `last_name` varchar(30) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `registration_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `url_img` varchar(255) NOT NULL,
+  `url_img` varchar(255) DEFAULT NULL,
   `privacy_setting` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -112,8 +151,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `first_name`, `last_name`, `password`, `registration_date`, `url_img`, `privacy_setting`) VALUES
-(1, 'Snahfu', 'Hans', 'Wirjawan', '12345678', '2022-12-25 14:15:10', 'http://pm1.narvii.com/5734/a7a08ce9ba236846588115fdd09f3f8d733d0850_00.jpg', 0),
-(2, 'Arifin', 'Theofilus', 'Arifin', '12345678', '2022-12-25 14:15:10', 'http://pm1.narvii.com/5734/a7a08ce9ba236846588115fdd09f3f8d733d0850_00.jpg', 0);
+(1, 'theo', 'Theofilus', 'Arifin', 'password', '2022-12-29 16:19:43', 'https://picsum.photos/200/300', 1),
+(2, 'hans', 'Hans', 'Wirjawan', 'password', '2022-12-20 07:57:53', 'https://picsum.photos/200/300', 0),
+(3, 'Alvin', 'Gregorius', 'Alvin', 'password', '2022-12-20 10:05:22', 'https://picsum.photos/200/300', 0),
+(4, 'user', 'user', NULL, 'password', '2022-12-20 10:05:22', 'https://picsum.photos/200/300', 0),
+(5, 'finz', 'theo', 'theo', 'password', '2022-12-28 17:03:33', NULL, 0),
+(6, '', '', '', '', '2022-12-28 17:05:27', NULL, 0);
 
 --
 -- Indexes for dumped tables
@@ -172,19 +215,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `memes`
 --
 ALTER TABLE `memes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
