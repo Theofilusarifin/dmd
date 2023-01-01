@@ -19,19 +19,19 @@ class RegisterActivity : AppCompatActivity() {
         btnDaftar.setOnClickListener {
 //            Registration Checking
             var canRegister = true
-            if (txtBottomText.text.toString() != null) {
+            if (txtBottomText.text.toString() == "") {
                 canRegister = false
                 Toast.makeText(this, "Please fill your first name!", Toast.LENGTH_SHORT).show()
             }
-            if (txtLastName.text.toString() != null) {
+            if (txtLastName.text.toString() == "") {
                 canRegister = false
                 Toast.makeText(this, "Please fill your username!", Toast.LENGTH_SHORT).show()
             }
-            if (txtPassword.text.toString() != null) {
+            if (txtPassword.text.toString() == "") {
                 canRegister = false
                 Toast.makeText(this, "Please fill your password!", Toast.LENGTH_SHORT).show()
             }
-            if (txtPassword.text.toString() == txtConfirmPassword.text.toString()) {
+            if (txtPassword.text.toString() != txtConfirmPassword.text.toString()) {
                 canRegister = false
                 Toast.makeText(this, "Password does not match!", Toast.LENGTH_SHORT).show()
             }
@@ -40,7 +40,8 @@ class RegisterActivity : AppCompatActivity() {
             if (canRegister){
                 val queue = Volley.newRequestQueue(this)
 //                Ip Arifin
-                val url = "http://192.168.100.37/dmd/api/register.php"
+//                val url = "http://192.168.100.37/dmd/api/register.php"
+                val url = "https://ubaya.fun/native/160420108/api/register.php"
 
                 val stringRequest = object : StringRequest(
                     Request.Method.POST,
@@ -86,5 +87,9 @@ class RegisterActivity : AppCompatActivity() {
         btnLoginRegisterPage.setOnClickListener {
             finish()
         }
+    }
+
+    override fun onBackPressed() {
+        Toast.makeText(this, "You cannot go back", Toast.LENGTH_SHORT).show()
     }
 }

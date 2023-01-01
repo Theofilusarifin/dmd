@@ -40,7 +40,8 @@ class LoginActivity : AppCompatActivity() {
         buttonLogin.setOnClickListener {
             val queue = Volley.newRequestQueue(this)
 //            IP Arifin
-            val url = "http://192.168.100.37/dmd/api/login.php"
+//            val url = "http://192.168.100.37/dmd/api/login.php"
+            val url = "https://ubaya.fun/native/160420108/api/login.php"
 
             val stringRequest = object : StringRequest(
                 Request.Method.POST,
@@ -100,5 +101,9 @@ class LoginActivity : AppCompatActivity() {
         buttonDaftar.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
+    }
+
+    override fun onBackPressed() {
+        Toast.makeText(this, "You cannot go back", Toast.LENGTH_SHORT).show()
     }
 }

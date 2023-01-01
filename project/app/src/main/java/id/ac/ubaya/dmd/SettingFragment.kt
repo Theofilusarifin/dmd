@@ -58,6 +58,13 @@ class SettingFragment : Fragment() {
                 this.activity?.getSharedPreferences(sharedFile, Context.MODE_PRIVATE) ?: null
             val editor: SharedPreferences.Editor? = shared?.edit() ?: null
             editor?.putInt("id", 0)
+            editor?.apply()
+
+//            Back to Login Activity
+            val parentActivity: Activity? = activity
+            val intentLogin = Intent(parentActivity, LoginActivity::class.java)
+            startActivity(intentLogin)
+            activity?.finish()
         }
         return v
     }

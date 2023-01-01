@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.title = ""
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-
         // ViewPager Process
         // Tambahin fragment ke listnya
         fragments.add(HomeFragment())
@@ -58,5 +57,9 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+    }
+
+    override fun onBackPressed() {
+        Toast.makeText(this, "You cannot go back", Toast.LENGTH_SHORT).show()
     }
 }

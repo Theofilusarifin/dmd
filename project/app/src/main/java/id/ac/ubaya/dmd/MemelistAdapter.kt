@@ -46,7 +46,8 @@ class MemelistAdapter(val listMemes:ArrayList<Memes>)
             if (!listMemes[position].liked) {
                 val queue = Volley.newRequestQueue(holder.v.context)
 //            IP Arifin
-                val url = "http://192.168.100.37/dmd/api/add_like.php"
+//                val url = "http://192.168.100.37/dmd/api/add_like.php"
+                val url = "https://ubaya.fun/native/160420108/api/add_like.php"
 
                 val stringRequest = object : StringRequest(
                     Request.Method.POST,
@@ -97,7 +98,8 @@ class MemelistAdapter(val listMemes:ArrayList<Memes>)
 //          Check wether the login user already like the meme or not
             val queue = Volley.newRequestQueue(holder.v.context)
 //          IP Arifin
-            val url = "http://192.168.100.37/dmd/api/add_report.php"
+//            val url = "http://192.168.100.37/dmd/api/add_report.php"
+            val url = "https://ubaya.fun/native/160420108/api/add_report.php"
 
             val stringRequest = object : StringRequest(
                 Request.Method.POST,

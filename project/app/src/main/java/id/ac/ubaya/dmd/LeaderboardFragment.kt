@@ -36,7 +36,8 @@ class LeaderboardFragment : Fragment() {
 
         val queue = Volley.newRequestQueue(activity)
 //        IP Arifin
-        val url = "http://192.168.100.37/dmd/api/get_leaderboard.php"
+//        val url = "http://192.168.100.37/dmd/api/get_leaderboard.php"
+        val url = "https://ubaya.fun/native/160420108/api/get_leaderboard.php"
         leaderboardList =  ArrayList()
 
         val stringRequest = object : StringRequest(

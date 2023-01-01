@@ -20,7 +20,8 @@ class AddMemeActivity : AppCompatActivity() {
         btnUpdateProfile.setOnClickListener{
             val queue = Volley.newRequestQueue(this)
 //            IP Arifin
-            val url = "http://192.168.100.37/dmd/api/add_meme.php"
+//            val url = "http://192.168.100.37/dmd/api/add_meme.php"
+            val url = "https://ubaya.fun/native/160420108/api/add_meme.php"
 
             val stringRequest = object : StringRequest(
                 Request.Method.POST,

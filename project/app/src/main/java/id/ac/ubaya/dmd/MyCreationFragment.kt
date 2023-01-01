@@ -35,7 +35,8 @@ class MyCreationFragment : Fragment() {
     fun getMyMemelist(){
         val queue = Volley.newRequestQueue(activity)
 //        IP Arifin
-        val url = "http://192.168.100.37/dmd/api/get_created_memes.php"
+//        val url = "http://192.168.100.37/dmd/api/get_created_memes.php"
+        val url = "https://ubaya.fun/native/160420108/api/get_created_memes.php"
         myMemeList = ArrayList()
 
         val stringRequest = object : StringRequest(
