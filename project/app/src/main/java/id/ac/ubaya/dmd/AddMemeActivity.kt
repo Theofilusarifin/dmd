@@ -2,14 +2,18 @@ package id.ac.ubaya.dmd
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View.OnFocusChangeListener
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_add_meme.*
+import kotlinx.android.synthetic.main.layout_item_peringkat_default.view.*
 import org.json.JSONObject
+
 
 class AddMemeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +58,35 @@ class AddMemeActivity : AppCompatActivity() {
             }
             queue.add(stringRequest)
         }
+
+        // EVENT BUAT LIVE PREVIEW
+        txtBottomText.setOnFocusChangeListener(OnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                // code to execute when EditText loses focus
+                // update bottom textnya di framelayout
+                tv_user_preview_bottom.text = txtBottomText.text.toString()
+            }
+        })
+
+        // Top Text
+        txtLastName.setOnFocusChangeListener(OnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                // code to execute when EditText loses focus
+                // update top textnya di framelayout
+                tv_user_preview_top.text = txtLastName.text.toString()
+            }
+        })
+
+        // Image URL Text
+        txtFirstName.setOnFocusChangeListener(OnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                // code to execute when EditText loses focus
+                // update image di framelayout
+                // ambil url dari text input edit text
+                val url = txtFirstName.text.toString()
+                Picasso.get().load(url).into(iv_user_meme_preview)
+            }
+        })
 
         btnEditProfileBack.setOnClickListener{
             finish()

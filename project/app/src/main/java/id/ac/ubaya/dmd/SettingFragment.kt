@@ -42,7 +42,6 @@ class SettingFragment : Fragment() {
 
 //        Button Logout
         v.btnLogout.setOnClickListener {
-            Toast.makeText(this.activity, "Button logout", Toast.LENGTH_LONG).show()
             Global.user_id = 0
             Global.username = ""
             Global.firstName = ""
