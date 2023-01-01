@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
         drawerToggle.syncState()
 
         supportActionBar?.title = ""
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // ViewPager Process
         // Tambahin fragment ke listnya
