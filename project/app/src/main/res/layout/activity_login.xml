@@ -29,7 +29,7 @@
             android:backgroundTint="#FFFFFF">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLoginUsername"
+                android:id="@+id/textInputComment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -45,7 +45,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/txtLoginPage">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textUsername"
+                    android:id="@+id/txtComment"
                     android:layout_width="match_parent"
                     android:layout_height="65dp"
                     android:letterSpacing="0"
@@ -67,7 +67,7 @@
                 app:hintEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLoginUsername">
+                app:layout_constraintTop_toBottomOf="@+id/textInputComment">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/textPassword"

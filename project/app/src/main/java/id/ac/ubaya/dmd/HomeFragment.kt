@@ -15,7 +15,6 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import org.json.JSONObject
 
@@ -98,10 +97,10 @@ class HomeFragment : Fragment() {
 
     public fun updateMemelist() {
         val lm: LinearLayoutManager = LinearLayoutManager(activity)
-        var recyclerView = view?.findViewById<RecyclerView>(R.id.rv_listofmemes)
+        var recyclerView = view?.findViewById<RecyclerView>(R.id.rv_listofcomments)
         recyclerView?.layoutManager = lm
         recyclerView?.setHasFixedSize(true)
-        recyclerView?.adapter = MemelistAdapter(memelist)
+        recyclerView?.adapter = MemelistAdapter(this.requireContext(), memelist)
     }
 
     override fun onResume() {

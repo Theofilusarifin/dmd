@@ -21,9 +21,9 @@ class UserCreationAdapter(val listMemes:ArrayList<Memes>)
     override fun onBindViewHolder(holder: UserCreationViewHolder, @SuppressLint("RecyclerView") position: Int) {
         //        Get Memes data
         val url = listMemes[position].url_img
-        Picasso.get().load(url).into(holder.v.iv_user_meme_preview)
-        holder.v.tv_user_preview_top.text = listMemes[position].top_text
-        holder.v.tv_user_preview_bottom.text = listMemes[position].bottom_text
+        Picasso.get().load(url).into(holder.v.iv_meme_detail)
+        holder.v.tv_detail_top.text = listMemes[position].top_text
+        holder.v.tv_detail_bottom.text = listMemes[position].bottom_text
         holder.v.tv_user_like.text = listMemes[position].total_like.toString() + " Likes"
         holder.v.tv_user_report.text = listMemes[position].total_report.toString() + " Reports"
         holder.v.tv_user_comment.text = listMemes[position].total_comment.toString() + " Comments"

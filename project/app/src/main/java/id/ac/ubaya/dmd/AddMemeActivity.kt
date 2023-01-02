@@ -11,7 +11,6 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_add_meme.*
-import kotlinx.android.synthetic.main.layout_item_peringkat_default.view.*
 import org.json.JSONObject
 
 
@@ -42,7 +41,7 @@ class AddMemeActivity : AppCompatActivity() {
                 },
                 Response.ErrorListener {
                     Toast.makeText(this, "Error Add Meme", Toast.LENGTH_SHORT).show()
-                    Log.e("Gagal", it.toString())
+                    Log.e("Gagal add meme", it.toString())
                 }
             )
             {
@@ -64,7 +63,7 @@ class AddMemeActivity : AppCompatActivity() {
             if (!hasFocus) {
                 // code to execute when EditText loses focus
                 // update bottom textnya di framelayout
-                tv_user_preview_bottom.text = txtBottomText.text.toString()
+                tv_detail_bottom.text = txtBottomText.text.toString()
             }
         })
 
@@ -73,7 +72,7 @@ class AddMemeActivity : AppCompatActivity() {
             if (!hasFocus) {
                 // code to execute when EditText loses focus
                 // update top textnya di framelayout
-                tv_user_preview_top.text = txtLastName.text.toString()
+                tv_detail_top.text = txtLastName.text.toString()
             }
         })
 
@@ -84,11 +83,11 @@ class AddMemeActivity : AppCompatActivity() {
                 // update image di framelayout
                 // ambil url dari text input edit text
                 val url = txtFirstName.text.toString()
-                Picasso.get().load(url).into(iv_user_meme_preview)
+                Picasso.get().load(url).into(iv_meme_detail)
             }
         })
 
-        btnEditProfileBack.setOnClickListener{
+        btnAddComment.setOnClickListener{
             finish()
         }
     }

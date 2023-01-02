@@ -2,11 +2,8 @@ package id.ac.ubaya.dmd
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import kotlinx.android.synthetic.main.activity_main.*
@@ -35,10 +32,10 @@ class MainActivity : AppCompatActivity() {
         fragments.add(SettingFragment())
 
         // Aktifin ViewPagernya
-        viewPager.adapter = ViewPagerAdapter(this, fragments)
+        rvListOfComment.adapter = ViewPagerAdapter(this, fragments)
 
         // Sinkronisasi Bottom Nav dengan ViewPager
-        viewPager.registerOnPageChangeCallback(object:ViewPager2.OnPageChangeCallback(){
+        rvListOfComment.registerOnPageChangeCallback(object:ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 // Kalau page dari viewPager diselect update Bottom Nav
                 bottomNav.selectedItemId = bottomNav.menu.getItem(position).itemId
@@ -47,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
         // Sinkronisasi ViewPager dengan Bottom Nav
         bottomNav.setOnItemSelectedListener {
-            viewPager.currentItem = when(it.itemId){
+            rvListOfComment.currentItem = when(it.itemId){
                 R.id.itemHome -> 0
                 R.id.itemMyCreation -> 1
                 R.id.itemLeaderbord -> 2

@@ -3,7 +3,6 @@ package id.ac.ubaya.dmd
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -15,10 +14,8 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.squareup.picasso.Picasso
-import com.theartofdev.edmodo.cropper.CropImage
+//import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.main.activity_edit_profile.*
-import kotlinx.android.synthetic.main.user_meme_card.view.*
 import org.json.JSONObject
 
 
@@ -97,7 +94,7 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
 //        Button back
-        btnEditProfileBack.setOnClickListener{
+        btnAddComment.setOnClickListener{
             finish()
         }
 
@@ -122,7 +119,7 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun PickImage() {
-        CropImage.activity().start(this)
+//        CropImage.activity().start(this)
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -159,15 +156,15 @@ class EditProfileActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            val result = CropImage.getActivityResult(data)
-            if (resultCode == RESULT_OK) {
-                val resultUri: Uri = result.uri
-
-                Picasso.get().load(resultUri).into(imagePhotoProfile)
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                val error = result.error
-            }
-        }
+//        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+//            val result = CropImage.getActivityResult(data)
+//            if (resultCode == RESULT_OK) {
+//                val resultUri: Uri = result.uri
+//
+//                Picasso.get().load(resultUri).into(imagePhotoProfile)
+//            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+//                val error = result.error
+//            }
+//        }
     }
 }

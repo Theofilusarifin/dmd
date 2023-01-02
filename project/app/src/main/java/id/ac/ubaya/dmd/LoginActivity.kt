@@ -90,7 +90,7 @@ class LoginActivity : AppCompatActivity() {
             ) {
                 override fun getParams(): MutableMap<String, String> {
                     val params = HashMap<String, String>()
-                    params["username"] = textUsername.text.toString()
+                    params["username"] = txtComment.text.toString()
                     params["password"] = textPassword.text.toString()
                     return params
                 }

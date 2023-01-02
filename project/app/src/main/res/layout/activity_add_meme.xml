@@ -41,7 +41,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.utils.widget.ImageFilterButton
-                android:id="@+id/btnEditProfileBack"
+                android:id="@+id/btnAddComment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -182,7 +182,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/iv_user_meme_preview"
+                    android:id="@+id/iv_meme_detail"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:background="@drawable/ic_launcher_background"
@@ -190,7 +190,7 @@
                     android:scaleType="centerCrop" />
 
                 <TextView
-                    android:id="@+id/tv_user_preview_top"
+                    android:id="@+id/tv_detail_top"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="16dp"
@@ -209,7 +209,7 @@
                     tools:ignore="TextContrastCheck" />
 
                 <TextView
-                    android:id="@+id/tv_user_preview_bottom"
+                    android:id="@+id/tv_detail_bottom"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="16dp"

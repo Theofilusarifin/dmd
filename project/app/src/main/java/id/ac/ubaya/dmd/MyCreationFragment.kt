@@ -71,7 +71,7 @@ class MyCreationFragment : Fragment() {
             },
             Response.ErrorListener {
                 Toast.makeText(activity, "Error Get Memes", Toast.LENGTH_SHORT).show()
-                Log.e("Gagal", it.toString())
+                Log.e("Gagal Get My Meme", it.toString())
             }
         ) {
             override fun getParams(): MutableMap<String, String> {
