@@ -133,7 +133,9 @@ class DetailMemeActivity : AppCompatActivity() {
                             commentObject.getInt("privacy_setting"),
                             commentObject.getInt("meme_id"),
                             commentObject.getString("content"),
-                            commentObject.getString("created_at")
+                            commentObject.getString("created_at"),
+                            commentObject.getInt("total_like"),
+                            commentObject.getBoolean("liked")
                         )
                         commentList.add(comment)
                     }
@@ -151,6 +153,7 @@ class DetailMemeActivity : AppCompatActivity() {
             override fun getParams(): MutableMap<String, String> {
                 val params = HashMap<String, String>()
                 params["meme_id"] = meme_id.toString()
+                params["user_id"] = Global.user_id.toString()
                 return params
             }
         }

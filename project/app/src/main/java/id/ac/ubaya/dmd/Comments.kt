@@ -7,4 +7,6 @@ data class Comments(val id:Int,
                     val privacy_setting:Int,
                     val meme_id:Int,
                     val content:String,
-                    val created_at:String)
+                    val created_at:String,
+                    var total_like:Int,
+                    var liked:Boolean)

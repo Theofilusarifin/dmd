@@ -10,12 +10,26 @@ if ($mysqli->connect_errno) {
 $status = 'error';
 $msg = 'Get Comment error!';
 $memes = [];
-if (isset($_POST['meme_id'])) {
+if (isset($_POST['meme_id']) && isset($_POST['user_id'])) {
     // Get passed variable
     $meme_id = $_POST['meme_id'];
+    $user_id = $_POST['user_id'];
 
     // Get all comment detail
-    $sql =  "SELECT c.*, u.first_name, u.last_name, u.privacy_setting FROM memes m LEFT JOIN comments c on m.id = c.meme_id INNER JOIN users u on u.id = c.user_id WHERE m.id = ? ORDER BY c.created_at";
+    $sql =  "SELECT * FROM like_comments WHERE user_id = ?";
+    $stmt = $mysqli->prepare($sql);
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $res = $stmt->get_result();
+
+    $comment_liked_id = [];
+    while ($row = $res->fetch_assoc()) {
+        // Store comment details to array
+        array_push($comment_liked_id, $row['comment_id']);
+    }
+
+    // Get all comment detail
+    $sql =  "SELECT c.*, u.first_name, u.last_name, u.privacy_setting, count(lc.comment_id) as total_like FROM comments c LEFT JOIN like_comments lc on c.id = lc.comment_id INNER JOIN users u on u.id = c.user_id WHERE c.meme_id = ? GROUP BY c.id ORDER BY c.created_at";
     $stmt = $mysqli->prepare($sql);
     $stmt->bind_param("i", $meme_id);
     $stmt->execute();
@@ -23,6 +37,8 @@ if (isset($_POST['meme_id'])) {
 
     $comments = [];
     while ($row = $res->fetch_assoc()) {
+        // if comment is already liked by user, set liked to true so user can not like it again
+        $liked = (in_array($row['id'], $comment_liked_id)) ? true : false;
         // Store comment details to array
         $comment = array(
             "id" => $row['id'],
@@ -33,6 +49,8 @@ if (isset($_POST['meme_id'])) {
             "meme_id" => $row['meme_id'],
             "content" => $row['content'],
             "created_at" => $row['created_at'],
+            "total_like" => $row['total_like'],
+            "liked" => $liked,
         );
         $comments[] = $comment;
     }

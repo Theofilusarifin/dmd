@@ -8,7 +8,9 @@
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
@@ -23,7 +25,7 @@
             android:layout_height="wrap_content">
 
             <ImageButton
-                android:id="@+id/btn_user_like2"
+                android:id="@+id/btn_like_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="false"
@@ -48,7 +50,7 @@
                 android:textAppearance="@style/TextNormal"
                 android:textColor="@color/custom_light_black"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toStartOf="@+id/btn_user_like2"
+                app:layout_constraintEnd_toStartOf="@+id/btn_like_comment"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtUsername" />
