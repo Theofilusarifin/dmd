@@ -34,8 +34,6 @@ class MyCreationFragment : Fragment() {
 
     fun getMyMemelist(){
         val queue = Volley.newRequestQueue(activity)
-//        IP Arifin
-//        val url = "http://192.168.100.37/dmd/api/get_created_memes.php"
         val url = "https://ubaya.fun/native/160420108/api/get_created_memes.php"
         myMemeList = ArrayList()
 
@@ -81,34 +79,6 @@ class MyCreationFragment : Fragment() {
             }
         }
         queue.add(stringRequest)
-
-//        var stringRequest = StringRequest(
-//            Request.Method.GET, url,
-//            {
-//                Log.d("volley_sukses", it)
-//                val obj = JSONObject(it)
-//                if(obj.getString("result") == "OK"){
-//                    val data = obj.getJSONArray("data")
-//                    for (i in 0 until data.length()){
-//                        val memeObject = data.getJSONObject(i)
-//                        val meme = Memes(
-//                            memeObject.getInt("id"),
-//                            memeObject.getString("top_text"),
-//                            memeObject.getString("bottom_text"),
-//                            memeObject.getString("url_img"),
-//                            memeObject.getInt("num_likes"),
-//                            memeObject.getInt("num_reports")
-//                        )
-//                        memelist.add(meme)
-//                    }
-////                    Log.d("cekisiarray", playlists.toString())
-//                    updateMemelist()
-//                }
-//            },
-//            {
-//                Log.e("volley_gagal", it.message.toString())
-//            })
-//        q.add(stringRequest)
     }
 
     fun updateMemelist() {
@@ -116,7 +86,7 @@ class MyCreationFragment : Fragment() {
         var recyclerView = view?.findViewById<RecyclerView>(R.id.rv_usersmeme)
         recyclerView?.layoutManager = lm
         recyclerView?.setHasFixedSize(true)
-        recyclerView?.adapter = UserCreationAdapter(myMemeList)
+        recyclerView?.adapter = UserCreationAdapter(this.requireContext(), myMemeList)
     }
 
     override fun onResume() {

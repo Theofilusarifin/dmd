@@ -43,7 +43,6 @@ class MemelistAdapter(private val context: Context, val listMemes: ArrayList<Mem
             holder.v.btn_user_like.setImageResource(R.drawable.like_filled)
         }
 
-
 //        Button Like
         holder.v.btn_user_like.setOnClickListener {
 //              Check wether the login user already like the meme or not
