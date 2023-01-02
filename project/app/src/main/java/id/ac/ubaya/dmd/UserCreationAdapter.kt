@@ -3,6 +3,7 @@ package id.ac.ubaya.dmd
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +32,10 @@ class UserCreationAdapter(private val context: Context, val listMemes:ArrayList<
         //        Check button like
         if (listMemes[position].liked) {
             holder.v.btn_user_like.setImageResource(R.drawable.like_filled)
+        }
+
+        if (listMemes[position].total_report >= 3){
+            holder.v.userCreationConstraint.setBackgroundColor(Color.parseColor("#C6C7C9"))
         }
 
         //        Get Memes data
