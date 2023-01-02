@@ -52,7 +52,6 @@ class DetailMemeActivity : AppCompatActivity() {
                         txtComment.setText("")
                         if (meme_id != 0){
                             getComment()
-                            UpgradeListComment()
                         }
                         Toast.makeText(this, obj.getString("msg"), Toast.LENGTH_LONG).show()
                     } else {
