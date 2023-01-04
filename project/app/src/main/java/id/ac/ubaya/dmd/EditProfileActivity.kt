@@ -1,12 +1,15 @@
 package id.ac.ubaya.dmd
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -31,7 +34,8 @@ import java.lang.ref.WeakReference
 class EditProfileActivity : AppCompatActivity() {
 
     // BUAT VARIABLE PENAMPUNG SEMENTARA IMAGE URI YG MAU DIUPLOAD KE SERVER
-    var imageToUpload:Uri? = null
+    public var imageToUpload:Uri? = null
+    var path: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,7 +102,6 @@ class EditProfileActivity : AppCompatActivity() {
             // UPLOAD IMAGE KE WEBSERVICE
             // di https://ubaya.fun/native/160420108/profilpic
             uploadImage()
-
         }
 //        Checked Privacy Setting
         imgCheckBoxPrivacySetting.setOnClickListener {
@@ -213,6 +216,7 @@ class EditProfileActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("WrongConstant")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?){
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode == Activity.RESULT_OK){

@@ -18,6 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dmd"
         android:usesCleartextTraffic="true"
+        android:requestLegacyExternalStorage="true"
         tools:targetApi="31">
 
         <provider

@@ -17,4 +17,6 @@
     <string name="last_name">Last Name</string>
     <string name="save_changes">Save Changes</string>
     <string name="hide_my_name">Hide my name</string>
+    <string name="NotConnected">Not Connected</string>
+    <string name="url_insert_image">https://ubaya.fun/native/160420108/profilpic</string>
 </resources>
