@@ -20,7 +20,10 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_edit_profile.*
+import kotlinx.android.synthetic.main.activity_edit_profile.imagePhotoProfile
+import kotlinx.android.synthetic.main.fragment_setting.*
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
 import java.lang.ref.WeakReference
@@ -35,6 +38,9 @@ class EditProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
+        //            Get Image
+        val url = Global.urlImg
+        Picasso.get().load(url).fit().centerCrop().into(imagePhotoProfile)
 
         //        Set login user data
         txtFirstName.setText(Global.firstName)

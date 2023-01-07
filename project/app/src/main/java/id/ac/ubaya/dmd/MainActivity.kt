@@ -1,16 +1,23 @@
 package id.ac.ubaya.dmd
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.drawerlayout.widget.DrawerLayout.DrawerListener
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.navigation.NavigationView
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.drawer_header.view.*
 import kotlinx.android.synthetic.main.drawer_layout.*
 
 
@@ -50,6 +57,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         })
 
+
         // Sinkronisasi ViewPager dengan Bottom Nav
         bottomNav.setOnItemSelectedListener {
             rvListOfComment.currentItem = when(it.itemId){
@@ -64,6 +72,32 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 //        Set Default yang aktif adalah home
         navView.getMenu().getItem(0).setChecked(true)
+
+        val drawer = findViewById<DrawerLayout>(R.id.drawerLayout)
+        drawer.addDrawerListener(object : DrawerListener {
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+
+            }
+
+            override fun onDrawerOpened(drawerView: View) {
+            }
+
+            override fun onDrawerClosed(drawerView: View) {
+            }
+
+            override fun onDrawerStateChanged(newState: Int) {
+                navView.txtMenuName.text = Global.firstName + " " + Global.lastName
+                navView.txtMenuUsername.text = "@" + Global.username
+                //            Get Image
+                val url = Global.urlImg
+                Picasso.get().load(url).fit().centerCrop().into(navView.imgProfile)
+
+//                Logout
+                navView.fabMenuLogout.setOnClickListener {
+                    logout()
+                }
+            }
+        })
     }
 
     override fun onBackPressed() {
@@ -90,5 +124,28 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val drawer = findViewById<DrawerLayout>(R.id.drawerLayout)
         drawer.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun logout(){
+            Global.user_id = 0
+            Global.username = ""
+            Global.firstName = ""
+            Global.lastName = ""
+            Global.password = ""
+            Global.registrationDate = ""
+            Global.urlImg = ""
+            Global.privacySetting = 0
+
+//            Reset Shared Preference
+            val sharedFile = "id.ac.ubaya.dmd"
+            val shared: SharedPreferences = this.getSharedPreferences(sharedFile, Context.MODE_PRIVATE)
+            val editor: SharedPreferences.Editor = shared.edit()
+            editor.putInt("id", 0)
+            editor.apply()
+
+//            Back to Login Activity
+            val intentLogin = Intent(this, LoginActivity::class.java)
+            startActivity(intentLogin)
+            this.finish()
     }
 }

@@ -73,6 +73,11 @@ class SettingFragment : Fragment() {
 //        Set login user
         txtProfileName.text = Global.firstName + " " + Global.lastName
         txtProfileUsername.text = "@" + Global.username
+
+        //            Get Image
+        val url = Global.urlImg
+        Picasso.get().load(url).fit().centerCrop().into(imagePhotoProfile)
+
         if (Global.privacySetting == 1){
             txtProfileTypeAccount.text = "Private Account"
         }
