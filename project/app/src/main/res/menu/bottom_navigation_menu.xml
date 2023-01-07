@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item
-        android:id="@+id/itemHome"
-        android:icon="@drawable/ic_baseline_home_24"
-        android:title="Home"
-        app:showAsAction="always" />
-    <item
-        android:id="@+id/itemMyCreation"
-        android:icon="@drawable/ic_baseline_create_24"
-        android:title="MyCreation"
-        app:showAsAction="always" />
-    <item
-        android:id="@+id/itemLeaderbord"
-        android:icon="@drawable/ic_baseline_leaderboard_24"
-        android:title="Leaderboard"
-        app:showAsAction="always" />
-    <item
-        android:id="@+id/itemSettings"
-        android:icon="@drawable/ic_baseline_settings_24"
-        android:title="Settings"
-        app:showAsAction="always" />
+    <group
+        android:id="@+id/group"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/itemHome"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="Home"
+            app:showAsAction="always"
+            />
+        <item
+            android:id="@+id/itemMyCreation"
+            android:icon="@drawable/ic_baseline_create_24"
+            android:title="MyCreation"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/itemLeaderbord"
+            android:icon="@drawable/ic_baseline_leaderboard_24"
+            android:title="Leaderboard"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/itemSettings"
+            android:icon="@drawable/ic_baseline_settings_24"
+            android:title="Settings"
+            app:showAsAction="always" />
+    </group>
 </menu>
