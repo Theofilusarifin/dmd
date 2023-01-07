@@ -1,13 +1,28 @@
 <?php
+header('Access-Control-Allow-Origin: *');
 
-$target_path = "https://ubaya.fun/native/160420108/profilpic/";
-$target_path = $target_path.basename($_FILES['uploaded_file']['name']);
+$status = 'error';
+$msg = 'Upload File process error!';
 
-if(move_uploaded_file($_FILES['uploaded_file']['name'], $target_path)){
-    // Berhasil
+if(!empty($_POST['uploaded_file']) && !empty($_POST['user_id'])){
+    // upload file
+    $imageFileEncoded = $_POST['uploaded_file'];
+    $namaImage = "profilepicture_".$_POST['user_id'].".jpg";
+    if(file_put_contents("profilpic/$namaImage", base64_decode($imageFileEncoded))){
+        // Upload berhasil
+        $status = 'success';
+        $msg = 'Upload Image success';
+    }else{
+        $status = 'error';
+        $msg = "Upload Image failed!";
+    }
 }
-else {
-    // Gagal
-}
 
-?>
+// Return Json
+echo json_encode(array(
+    "status" => $status,
+    "msg" => $msg,
+));
+
+
+
