@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
     val fragments: ArrayList<Fragment> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.drawer_layout)
 
         setSupportActionBar(toolbar)
 

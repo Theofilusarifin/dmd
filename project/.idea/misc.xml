@@ -19,7 +19,7 @@
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/activity_main.xml" value="0.42038753159224934" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/activity_register.xml" value="0.33" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/drawer_header.xml" value="0.5" />
-        <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/drawer_layout.xml" value="0.35520833333333335" />
+        <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/drawer_layout.xml" value="0.33" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/fragment_leaderboard.xml" value="0.35625" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/fragment_my_creation.xml" value="0.22" />
@@ -34,6 +34,7 @@
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/myspinner_layout.xml" value="0.35625" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/layout/user_meme_card.xml" value="0.25" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.2598958333333333" />
+        <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/menu/menu_drawer.xml" value="0.35625" />
         <entry key="..\:/xampp/htdocs/dmd/project/app/src/main/res/menu/menu_toolbar.xml" value="0.2598958333333333" />
         <entry key="..\:/xampp/htdocs/github/dmd/project/app/src/main/res/drawable/bg_bronze.xml" value="0.2595" />
         <entry key="..\:/xampp/htdocs/github/dmd/project/app/src/main/res/drawable/bg_default.xml" value="0.2585" />
