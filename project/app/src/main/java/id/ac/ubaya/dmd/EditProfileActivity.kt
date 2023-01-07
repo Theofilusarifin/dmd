@@ -3,38 +3,33 @@ package id.ac.ubaya.dmd
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.ContentResolver
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
-import android.os.AsyncTask
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Base64
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 import org.json.JSONObject
-import java.io.File
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
+import java.io.ByteArrayOutputStream
 import java.lang.ref.WeakReference
 
 
 class EditProfileActivity : AppCompatActivity() {
 
     // BUAT VARIABLE PENAMPUNG SEMENTARA IMAGE URI YG MAU DIUPLOAD KE SERVER
-    public var imageToUpload:Uri? = null
+    public var imageToUpload:Bitmap? = null
     var path: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -129,11 +124,46 @@ class EditProfileActivity : AppCompatActivity() {
 
     // Function Upload Image
     private fun uploadImage() {
+        // Persiapin object buat bntu upload
+        var outputStream: ByteArrayOutputStream = ByteArrayOutputStream()
+
         // CEK APAKAH IMAGENYA NULL ATO NDAK? KLO NULL ARTINYA BELUM UBAH GAMBAR SAMA SEKALI
         if(imageToUpload == null){
             return
         }
 
+        imageToUpload!!.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+        val bytes: ByteArray = outputStream.toByteArray()
+        val base64ImagetoUpload:String = Base64.encodeToString(bytes, Base64.DEFAULT)
+        // VOLLEY TO UPLOAD FILE
+        val queue = Volley.newRequestQueue(this)
+        val url = "https://ubaya.fun/native/160420108/upload_profilepic.php"
+        val stringRequest = object : StringRequest(
+            Request.Method.POST,
+            url,
+            Response.Listener {
+                val obj = JSONObject(it)
+                if (obj.getString("status") == "success") {
+                    Toast.makeText(this, obj.getString("msg"), Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(this, obj.getString("msg"), Toast.LENGTH_LONG).show()
+                }
+
+            },
+            Response.ErrorListener {
+                Toast.makeText(this, "Error Update Profile", Toast.LENGTH_SHORT)
+                    .show()
+                Log.e("Gagal", it.toString())
+            }
+        ) {
+            override fun getParams(): MutableMap<String, String> {
+                val params = HashMap<String, String>()
+                params["user_id"] = Global.user_id.toString()
+                params["uploaded_file"] = base64ImagetoUpload
+                return params
+            }
+        }
+        queue.add(stringRequest)
     }
 
     fun chooseImageMethod() {
@@ -233,48 +263,60 @@ class EditProfileActivity : AppCompatActivity() {
 
                 // Get the bitmap after keeping the quality intact
                 var bitmapHD: Bitmap? = imageHighQuality.get()
-                // CONVERT TO URI PROCESS
-                uriFromCamera = convertImage(bitmapHD, this)
 
-                // Set uri to image view
-                imagePhotoProfile.setImageURI(uriFromCamera)
+                // Set bitmap to image view
+                imagePhotoProfile.setImageBitmap(bitmapHD)
 
-                // UPDATE imageToUpload
-                imageToUpload = uriFromCamera
+                // Update imageToUpload
+                imageToUpload = bitmapHD
+//                // CONVERT TO URI PROCESS
+//                uriFromCamera = convertImage(bitmapHD, this)
+//
+//                // Set uri to image view
+//                imagePhotoProfile.setImageURI(uriFromCamera)
+//
+//                // UPDATE imageToUpload
+//                imageToUpload = uriFromCamera
             }
             else if(requestCode == 1) {
                 // requestCode 1 --> Gallery
                 var imageUri = data?.data //image uri ato path
                 // set uri to image view
-                imagePhotoProfile.setImageURI(imageUri)
+//                imagePhotoProfile.setImageURI(imageUri)
+
+                // Convert uri to Bitmap
+                var bitmapFromUri = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
+
+                // set bitmap to image view
+                imagePhotoProfile.setImageBitmap(bitmapFromUri)
 
                 // UPDATE imageToUpload
-                imageToUpload = imageUri
+                imageToUpload = bitmapFromUri
             }
         }
     }
 
-    private fun convertImage(bitmapHD: Bitmap?, context: Context): Uri {
-        var imageFolder: File = File(context.cacheDir, "images")
-        var uriResult: Uri? = null;
-        try {
-            // create folder buat nampung sementara
-            imageFolder.mkdirs()
-            // buat file untuk nampung imagenya
-            var imageFile: File = File(imageFolder, "captured_image.jpg")
-            // buat Output stream kayak di disprog
-            var stream: FileOutputStream = FileOutputStream(imageFile)
-            // compress filenya dlm bntuk jpeg format dan di execute
-            bitmapHD?.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-            stream.flush()
-            stream.close()
-
-            // Dapetin urinya dan masukin project namenya
-            uriResult = FileProvider.getUriForFile(context.applicationContext, "id.ac.ubaya.dmd"+".provider",imageFile)
-        }catch (e: FileNotFoundException){
-            e.printStackTrace()
-        }
-
-        return uriResult!!;
-    }
+//    private fun convertImage(bitmapHD: Bitmap?, context: Context): Uri {
+//        var imageFolder: File = File(context.cacheDir, "images")
+//        var uriResult: Uri? = null;
+//        try {
+//            // create folder buat nampung sementara
+//            imageFolder.mkdirs()
+//            // buat file untuk nampung imagenya
+//            var imageFile: File = File(imageFolder, "captured_image.jpg")
+//            // buat Output stream kayak di disprog
+//            var stream: FileOutputStream = FileOutputStream(imageFile)
+//            // compress filenya dlm bntuk jpeg format dan di execute
+//            bitmapHD?.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+//            stream.flush()
+//            stream.close()
+//
+//            // Dapetin urinya dan masukin project namenya
+//            uriResult = FileProvider.getUriForFile(context.applicationContext, "id.ac.ubaya.dmd"+".provider",imageFile)
+//        }catch (e: FileNotFoundException){
+//            e.printStackTrace()
+//        }
+//
+//        return uriResult!!;
+//    }
 }
