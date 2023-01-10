@@ -45,7 +45,7 @@ class EditProfileActivity : AppCompatActivity() {
         //            Get Image
         val url = Global.urlImg
         if (url != ""){
-            Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).into(imagePhotoProfile)
+            Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).networkPolicy(NetworkPolicy.NO_CACHE).into(imagePhotoProfile)
         }
 
         //        Set login user data

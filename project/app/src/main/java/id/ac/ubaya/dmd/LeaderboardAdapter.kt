@@ -21,7 +21,7 @@ class LeaderboardAdapter (val list: MutableList<Leaderboards>): RecyclerView.Ada
 //            Get Image
             val url = user.url_img
             if (url != ""){
-                Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).into(itemView.profile_image)
+                Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).networkPolicy(NetworkPolicy.NO_CACHE).into(itemView.profile_image)
             }
 
             val firstName = user.first_name
