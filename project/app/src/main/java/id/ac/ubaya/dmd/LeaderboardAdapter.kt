@@ -5,7 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.MemoryPolicy
+import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.drawer_header.view.*
+import kotlinx.android.synthetic.main.drawer_layout.*
 import kotlinx.android.synthetic.main.layout_item_peringkat_default.view.*
 
 class LeaderboardAdapter (val list: MutableList<Leaderboards>): RecyclerView.Adapter<LeaderboardAdapter.GameViewHolder>() {
@@ -16,7 +20,9 @@ class LeaderboardAdapter (val list: MutableList<Leaderboards>): RecyclerView.Ada
         fun bindItem(user: Leaderboards){
 //            Get Image
             val url = user.url_img
-            Picasso.get().load(url).into(itemView.profile_image)
+            if (url != ""){
+                Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).into(itemView.profile_image)
+            }
 
             val firstName = user.first_name
             val lastName = user.last_name

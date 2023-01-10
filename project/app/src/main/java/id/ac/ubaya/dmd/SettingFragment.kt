@@ -13,6 +13,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.MemoryPolicy
+import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_setting.*
 import kotlinx.android.synthetic.main.fragment_setting.view.*
@@ -78,7 +80,7 @@ class SettingFragment : Fragment() {
         //            Get Image
         val url = Global.urlImg
         if (url != ""){
-            Picasso.get().load(url).fit().centerCrop().into(imagePhotoProfile)
+            Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).into(imagePhotoProfile)
         }
 
         if (Global.privacySetting == 1){

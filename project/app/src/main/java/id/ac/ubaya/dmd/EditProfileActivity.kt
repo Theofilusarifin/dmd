@@ -20,10 +20,13 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.squareup.picasso.MemoryPolicy
+import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 import kotlinx.android.synthetic.main.activity_edit_profile.imagePhotoProfile
 import kotlinx.android.synthetic.main.fragment_setting.*
+import kotlinx.android.synthetic.main.layout_item_peringkat_default.view.*
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
@@ -41,7 +44,9 @@ class EditProfileActivity : AppCompatActivity() {
         setContentView(R.layout.activity_edit_profile)
         //            Get Image
         val url = Global.urlImg
-        Picasso.get().load(url).fit().centerCrop().into(imagePhotoProfile)
+        if (url != ""){
+            Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).into(imagePhotoProfile)
+        }
 
         //        Set login user data
         txtFirstName.setText(Global.firstName)
