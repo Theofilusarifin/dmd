@@ -36,6 +36,12 @@ if (isset($_POST['username']) && isset($_POST['first_name']) && isset($_POST['pa
             $status = 'success';
             $msg = "Registration succesful!";
             $user_id = $mysqli->insert_id;
+
+            // Update image url
+            $url_img = "https://dmdproject02.000webhostapp.com/photo/" . $user_id . ".png";
+            $sql = "UPDATE users SET url_img = ? WHERE id = ?";
+            $stmt = $mysqli->prepare($sql);
+            $stmt->bind_param("si", $url_img, $user_id);
         } else {
             $status = 'error';
             $msg = "Registration failed!";

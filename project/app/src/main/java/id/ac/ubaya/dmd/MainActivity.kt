@@ -89,15 +89,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 navView.txtMenuName.text = Global.firstName + " " + Global.lastName
                 navView.txtMenuUsername.text = "@" + Global.username
                 //            Get Image
+                //convert the image string int bytes like this
+                //            Get Image
                 val url = Global.urlImg
-                Picasso.get().load(url).fit().centerCrop().into(navView.imgProfile)
-
+                if (url != ""){
+                    Picasso.get().load(url).fit().centerCrop().into(navView.imgProfile)
+                }
 //                Logout
                 navView.fabMenuLogout.setOnClickListener {
                     logout()
                 }
             }
         })
+
+
     }
 
     override fun onBackPressed() {

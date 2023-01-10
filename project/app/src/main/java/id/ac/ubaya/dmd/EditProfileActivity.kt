@@ -24,6 +24,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 import kotlinx.android.synthetic.main.activity_edit_profile.imagePhotoProfile
 import kotlinx.android.synthetic.main.fragment_setting.*
+import org.json.JSONException
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
 import java.lang.ref.WeakReference
@@ -101,8 +102,8 @@ class EditProfileActivity : AppCompatActivity() {
             // UPDATE IMAGE URL PAKAI VOLLEY ATAU TAMBAHIN DI API
 
             // UPLOAD IMAGE KE WEBSERVICE
-            // di https://ubaya.fun/native/160420108/profilpic
-            uploadImage()
+            // di https://dmdproject02.000webhostapp.com/api/upload_photo.php
+            uploadBitmap(imageToUpload)
         }
 //        Checked Privacy Setting
         imgCheckBoxPrivacySetting.setOnClickListener {
@@ -129,48 +130,48 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     // Function Upload Image
-    private fun uploadImage() {
-        // Persiapin object buat bntu upload
-        var outputStream: ByteArrayOutputStream = ByteArrayOutputStream()
-
-        // CEK APAKAH IMAGENYA NULL ATO NDAK? KLO NULL ARTINYA BELUM UBAH GAMBAR SAMA SEKALI
-        if(imageToUpload == null){
-            return
-        }
-
-        imageToUpload!!.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-        val bytes: ByteArray = outputStream.toByteArray()
-        val base64ImagetoUpload:String = Base64.encodeToString(bytes, Base64.DEFAULT)
-        // VOLLEY TO UPLOAD FILE
-        val queue = Volley.newRequestQueue(this)
-        val url = "https://ubaya.fun/native/160420108/upload_profilepic.php"
-        val stringRequest = object : StringRequest(
-            Request.Method.POST,
-            url,
-            Response.Listener {
-                val obj = JSONObject(it)
-                if (obj.getString("status") == "success") {
-                    Toast.makeText(this, obj.getString("msg"), Toast.LENGTH_LONG).show()
-                } else {
-                    Toast.makeText(this, obj.getString("msg"), Toast.LENGTH_LONG).show()
-                }
-
-            },
-            Response.ErrorListener {
-                Toast.makeText(this, "Error Update Profile", Toast.LENGTH_SHORT)
-                    .show()
-                Log.e("Gagal", it.toString())
-            }
-        ) {
-            override fun getParams(): MutableMap<String, String> {
-                val params = HashMap<String, String>()
-                params["user_id"] = Global.user_id.toString()
-                params["uploaded_file"] = base64ImagetoUpload
-                return params
-            }
-        }
-        queue.add(stringRequest)
-    }
+//    private fun uploadImage() {
+//        // Persiapin object buat bntu upload
+//        var outputStream: ByteArrayOutputStream = ByteArrayOutputStream()
+//
+//        // CEK APAKAH IMAGENYA NULL ATO NDAK? KLO NULL ARTINYA BELUM UBAH GAMBAR SAMA SEKALI
+//        if(imageToUpload == null){
+//            return
+//        }
+//
+//        imageToUpload!!.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+//        val bytes: ByteArray = outputStream.toByteArray()
+//        val base64ImagetoUpload:String = Base64.encodeToString(bytes, Base64.DEFAULT)
+//        // VOLLEY TO UPLOAD FILE
+//        val queue = Volley.newRequestQueue(this)
+//        val url = "https://ubaya.fun/native/160420108/upload_profilepic.php"
+//        val stringRequest = object : StringRequest(
+//            Request.Method.POST,
+//            url,
+//            Response.Listener {
+//                val obj = JSONObject(it)
+//                if (obj.getString("status") == "success") {
+//                    Toast.makeText(this, obj.getString("msg"), Toast.LENGTH_LONG).show()
+//                } else {
+//                    Toast.makeText(this, obj.getString("msg"), Toast.LENGTH_LONG).show()
+//                }
+//
+//            },
+//            Response.ErrorListener {
+//                Toast.makeText(this, "Error Update Profile", Toast.LENGTH_SHORT)
+//                    .show()
+//                Log.e("Gagal", it.toString())
+//            }
+//        ) {
+//            override fun getParams(): MutableMap<String, String> {
+//                val params = HashMap<String, String>()
+//                params["user_id"] = Global.user_id.toString()
+//                params["uploaded_file"] = base64ImagetoUpload
+//                return params
+//            }
+//        }
+//        queue.add(stringRequest)
+//    }
 
     fun chooseImageMethod() {
         // Declare variable for alert
@@ -213,16 +214,16 @@ class EditProfileActivity : AppCompatActivity() {
     // Function buat panggil implicit Intent Camera
     private fun GetPictureFromCamera() {
         val cameraIntent = Intent()
+        cameraIntent.type = "image/*"
         cameraIntent.action = MediaStore.ACTION_IMAGE_CAPTURE
         startActivityForResult(cameraIntent, 0)
     }
 
     // Function buat panggil implicit Intent Gallery
     private fun GetPictureFromGallery(){
-        val pickPhoto = Intent(
-            Intent.ACTION_PICK,
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-        )
+        val pickPhoto = Intent()
+        pickPhoto.type = "image/*"
+        pickPhoto.action = Intent.ACTION_GET_CONTENT
         startActivityForResult(pickPhoto, 1) //one can be replaced with any action code
 
     }
@@ -300,6 +301,43 @@ class EditProfileActivity : AppCompatActivity() {
                 imageToUpload = bitmapFromUri
             }
         }
+    }
+
+    private fun uploadBitmap(bitmap: Bitmap?) {
+        val volleyMultipartRequest: VolleyMultipartRequest =
+            object : VolleyMultipartRequest(Request.Method.POST, "https://dmdproject02.000webhostapp.com/api/upload_photo.php",
+                Response.Listener { response ->
+                    try {
+                        val obj = JSONObject(String(response.data))
+//                        Show error
+                        if (obj.getString("status") == "error"){
+                            Toast.makeText(this, obj.getString("msg"), Toast.LENGTH_LONG).show()
+                        }
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
+                    }
+                },
+                Response.ErrorListener { error ->
+                    Toast.makeText(applicationContext, error.message, Toast.LENGTH_LONG).show()
+                    Log.e("GotError", "" + error.message)
+                }) {
+                override fun getByteData(): Map<String, DataPart> {
+                    val params: MutableMap<String, DataPart> = HashMap()
+                    val imageName = Global.user_id.toString()
+                    Log.e("Image Name", imageName)
+                    params["image"] = DataPart("$imageName.png", getFileDataFromDrawable(bitmap))
+                    return params
+                }
+            }
+
+        //adding the request to volley
+        Volley.newRequestQueue(this).add(volleyMultipartRequest)
+    }
+
+    fun getFileDataFromDrawable(bitmap: Bitmap?): ByteArray? {
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap!!.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream)
+        return byteArrayOutputStream.toByteArray()
     }
 
 //    private fun convertImage(bitmapHD: Bitmap?, context: Context): Uri {
