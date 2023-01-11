@@ -44,8 +44,9 @@ class EditProfileActivity : AppCompatActivity() {
         setContentView(R.layout.activity_edit_profile)
         //            Get Image
         val url = Global.urlImg
-        if (url != ""){
-            Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).networkPolicy(NetworkPolicy.NO_CACHE).into(imagePhotoProfile)
+        if (url != "") {
+            Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                .networkPolicy(NetworkPolicy.NO_CACHE).into(imagePhotoProfile)
         }
 
         //        Set login user data
@@ -53,15 +54,18 @@ class EditProfileActivity : AppCompatActivity() {
         txtLastName.setText(Global.lastName)
         var tempPrivacy = Global.privacySetting
 
-        if (Global.privacySetting == 1){
+        if (Global.privacySetting == 1) {
             imgCheckBoxPrivacySetting.setImageResource(R.drawable.ic_baseline_check_box_24)
-        }
-        else{
+        } else {
             imgCheckBoxPrivacySetting.setImageResource(R.drawable.ic_baseline_check_box_outline_blank_24)
         }
 
 //        Button Update
         btnUpdateProfile.setOnClickListener {
+            // UPLOAD IMAGE KE WEBSERVICE
+            // di https://dmdproject02.000webhostapp.com/api/upload_photo.php
+            uploadBitmap(imageToUpload)
+
             // UPDATE USER INFORMATION KE DATABASE
             val queue = Volley.newRequestQueue(this)
 //            IP Arifin
@@ -103,80 +107,29 @@ class EditProfileActivity : AppCompatActivity() {
                 }
             }
             queue.add(stringRequest)
-
-            // UPDATE IMAGE URL PAKAI VOLLEY ATAU TAMBAHIN DI API
-
-            // UPLOAD IMAGE KE WEBSERVICE
-            // di https://dmdproject02.000webhostapp.com/api/upload_photo.php
-            uploadBitmap(imageToUpload)
         }
 //        Checked Privacy Setting
         imgCheckBoxPrivacySetting.setOnClickListener {
-            if (tempPrivacy == 1){
+            if (tempPrivacy == 1) {
                 imgCheckBoxPrivacySetting.setImageResource(R.drawable.ic_baseline_check_box_outline_blank_24)
                 tempPrivacy = 0
-            }
-            else{
+            } else {
                 imgCheckBoxPrivacySetting.setImageResource(R.drawable.ic_baseline_check_box_24)
                 tempPrivacy = 1
             }
         }
 
 //        Button back
-        btnAddComment.setOnClickListener{
+        btnAddComment.setOnClickListener {
             finish()
         }
 
 //        Image View Change
-        imagePhotoProfile.setOnClickListener{
+        imagePhotoProfile.setOnClickListener {
             // Function buat manggil alert dialog
             chooseImageMethod()
         }
     }
-
-    // Function Upload Image
-//    private fun uploadImage() {
-//        // Persiapin object buat bntu upload
-//        var outputStream: ByteArrayOutputStream = ByteArrayOutputStream()
-//
-//        // CEK APAKAH IMAGENYA NULL ATO NDAK? KLO NULL ARTINYA BELUM UBAH GAMBAR SAMA SEKALI
-//        if(imageToUpload == null){
-//            return
-//        }
-//
-//        imageToUpload!!.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-//        val bytes: ByteArray = outputStream.toByteArray()
-//        val base64ImagetoUpload:String = Base64.encodeToString(bytes, Base64.DEFAULT)
-//        // VOLLEY TO UPLOAD FILE
-//        val queue = Volley.newRequestQueue(this)
-//        val url = "https://ubaya.fun/native/160420108/upload_profilepic.php"
-//        val stringRequest = object : StringRequest(
-//            Request.Method.POST,
-//            url,
-//            Response.Listener {
-//                val obj = JSONObject(it)
-//                if (obj.getString("status") == "success") {
-//                    Toast.makeText(this, obj.getString("msg"), Toast.LENGTH_LONG).show()
-//                } else {
-//                    Toast.makeText(this, obj.getString("msg"), Toast.LENGTH_LONG).show()
-//                }
-//
-//            },
-//            Response.ErrorListener {
-//                Toast.makeText(this, "Error Update Profile", Toast.LENGTH_SHORT)
-//                    .show()
-//                Log.e("Gagal", it.toString())
-//            }
-//        ) {
-//            override fun getParams(): MutableMap<String, String> {
-//                val params = HashMap<String, String>()
-//                params["user_id"] = Global.user_id.toString()
-//                params["uploaded_file"] = base64ImagetoUpload
-//                return params
-//            }
-//        }
-//        queue.add(stringRequest)
-//    }
 
     fun chooseImageMethod() {
         // Declare variable for alert
@@ -219,7 +172,6 @@ class EditProfileActivity : AppCompatActivity() {
     // Function buat panggil implicit Intent Camera
     private fun GetPictureFromCamera() {
         val cameraIntent = Intent()
-        cameraIntent.type = "image/*"
         cameraIntent.action = MediaStore.ACTION_IMAGE_CAPTURE
         startActivityForResult(cameraIntent, 0)
     }
@@ -266,29 +218,20 @@ class EditProfileActivity : AppCompatActivity() {
                 // requestCode 0 --> Camera
                 val extras = data!!.extras
                 val imageBitmap: Bitmap = extras!!.get("data") as Bitmap
-                var uriFromCamera:Uri;
 
-                // Get A Good Quality of Image
-                var imageHighQuality: WeakReference<Bitmap> = WeakReference(Bitmap.createScaledBitmap(imageBitmap
-                    , imageBitmap.height, imageBitmap.width, false)
-                    .copy(Bitmap.Config.RGB_565, true))
-
-                // Get the bitmap after keeping the quality intact
-                var bitmapHD: Bitmap? = imageHighQuality.get()
-
-                // Set bitmap to image view
-                imagePhotoProfile.setImageBitmap(bitmapHD)
+//                // Get A Good Quality of Image
+//                var imageHighQuality: WeakReference<Bitmap> = WeakReference(Bitmap.createScaledBitmap(imageBitmap
+//                    , imageBitmap.height, imageBitmap.width, false)
+//                    .copy(Bitmap.Config.RGB_565, true))
+//
+//                // Get the bitmap after keeping the quality intact
+//                var bitmapHD: Bitmap? = imageHighQuality.get()
+//
+//                // Set bitmap to image view
+                imagePhotoProfile.setImageBitmap(imageBitmap)
 
                 // Update imageToUpload
-                imageToUpload = bitmapHD
-//                // CONVERT TO URI PROCESS
-//                uriFromCamera = convertImage(bitmapHD, this)
-//
-//                // Set uri to image view
-//                imagePhotoProfile.setImageURI(uriFromCamera)
-//
-//                // UPDATE imageToUpload
-//                imageToUpload = uriFromCamera
+                imageToUpload = imageBitmap
             }
             else if(requestCode == 1) {
                 // requestCode 1 --> Gallery
@@ -344,28 +287,4 @@ class EditProfileActivity : AppCompatActivity() {
         bitmap!!.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream)
         return byteArrayOutputStream.toByteArray()
     }
-
-//    private fun convertImage(bitmapHD: Bitmap?, context: Context): Uri {
-//        var imageFolder: File = File(context.cacheDir, "images")
-//        var uriResult: Uri? = null;
-//        try {
-//            // create folder buat nampung sementara
-//            imageFolder.mkdirs()
-//            // buat file untuk nampung imagenya
-//            var imageFile: File = File(imageFolder, "captured_image.jpg")
-//            // buat Output stream kayak di disprog
-//            var stream: FileOutputStream = FileOutputStream(imageFile)
-//            // compress filenya dlm bntuk jpeg format dan di execute
-//            bitmapHD?.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-//            stream.flush()
-//            stream.close()
-//
-//            // Dapetin urinya dan masukin project namenya
-//            uriResult = FileProvider.getUriForFile(context.applicationContext, "id.ac.ubaya.dmd"+".provider",imageFile)
-//        }catch (e: FileNotFoundException){
-//            e.printStackTrace()
-//        }
-//
-//        return uriResult!!;
-//    }
 }
