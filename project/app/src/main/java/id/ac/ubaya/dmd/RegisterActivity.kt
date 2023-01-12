@@ -23,15 +23,15 @@ class RegisterActivity : AppCompatActivity() {
                 canRegister = false
                 Toast.makeText(this, "Please fill your first name!", Toast.LENGTH_SHORT).show()
             }
-            if (txtLastName.text.toString() == "") {
+            else if (txtLastName.text.toString() == "") {
                 canRegister = false
                 Toast.makeText(this, "Please fill your username!", Toast.LENGTH_SHORT).show()
             }
-            if (txtPassword.text.toString() == "") {
+            else if (txtPassword.text.toString() == "") {
                 canRegister = false
                 Toast.makeText(this, "Please fill your password!", Toast.LENGTH_SHORT).show()
             }
-            if (txtPassword.text.toString() != txtConfirmPassword.text.toString()) {
+            else if (txtPassword.text.toString() != txtConfirmPassword.text.toString()) {
                 canRegister = false
                 Toast.makeText(this, "Password does not match!", Toast.LENGTH_SHORT).show()
             }
@@ -39,27 +39,19 @@ class RegisterActivity : AppCompatActivity() {
 //            If all requirement are completed then do registration
             if (canRegister){
                 val queue = Volley.newRequestQueue(this)
-//                Ip Arifin
-//                val url = "http://192.168.100.37/dmd/api/register.php"
+//                Nembak API
                 val url = "https://ubaya.fun/native/160420108/api/register.php"
 
                 val stringRequest = object : StringRequest(
                     Request.Method.POST,
                     url,
                     Response.Listener {
+//                        Result
                         val obj = JSONObject(it)
-
                         if (obj.getString("status") == "success") {
                             Toast.makeText(this, obj.getString("msg"), Toast.LENGTH_LONG).show()
 
-//                        Save user detail into global variable
-                            Global.user_id = obj.getInt("user_id")
-                            Global.username = txtLastName.text.toString()
-                            Global.firstName = txtBottomText.text.toString()
-                            Global.lastName = txtFirstName.text.toString()
-                            Global.urlImg = ""
-                            Global.privacySetting = 0
-
+//                            Balik ke login
                             finish()
                         } else {
                             Toast.makeText(this, obj.getString("msg"), Toast.LENGTH_LONG).show()

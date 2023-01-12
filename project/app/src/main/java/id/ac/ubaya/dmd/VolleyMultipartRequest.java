@@ -15,17 +15,18 @@ import java.io.IOException;
 import java.util.Map;
 
 public class VolleyMultipartRequest extends Request<NetworkResponse> {
-
-
+//    Define default variable that used
     private final String twoHyphens = "--";
     private final String lineEnd = "\r\n";
     private final String boundary = "apiclient-" + System.currentTimeMillis();
 
+//    Response
     private Response.Listener<NetworkResponse> mListener;
     private Response.ErrorListener mErrorListener;
+//    POST Parameter
     private Map<String, String> mHeaders;
 
-
+//    Constructor untuk Request
     public VolleyMultipartRequest(int method, String url,
                                   Response.Listener<NetworkResponse> listener,
                                   Response.ErrorListener errorListener) {
@@ -35,17 +36,21 @@ public class VolleyMultipartRequest extends Request<NetworkResponse> {
     }
 
     @Override
+//    Ambil header request
     public Map<String, String> getHeaders() throws AuthFailureError {
         return (mHeaders != null) ? mHeaders : super.getHeaders();
     }
 
     @Override
+//   Default overite for send multipart data
     public String getBodyContentType() {
         return "multipart/form-data;boundary=" + boundary;
     }
 
     @Override
+//    request body
     public byte[] getBody() throws AuthFailureError {
+//        Define stream tunnel for data
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(bos);
 
@@ -53,12 +58,14 @@ public class VolleyMultipartRequest extends Request<NetworkResponse> {
             // populate text payload
             Map<String, String> params = getParams();
             if (params != null && params.size() > 0) {
+//                Set parameter on request header
                 textParse(dos, params, getParamsEncoding());
             }
 
             // populate data byte payload
             Map<String, DataPart> data = getByteData();
             if (data != null && data.size() > 0) {
+                //        Get bytearray from image
                 dataParse(dos, data);
             }
 

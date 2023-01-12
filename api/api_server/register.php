@@ -32,21 +32,27 @@ if (isset($_POST['username']) && isset($_POST['first_name']) && isset($_POST['pa
         
         // Add 7 hour because gmt+7
         $now = date("Y-m-d H:m:s");
-        $registration_date = date("Y-m-d H:i:s", strtotime($date . ' + 7 hours'));
+        $registration_date = date("Y-m-d H:i:s", strtotime($now . ' + 7 hours'));
 
         $stmt = $mysqli->prepare($sql);
-        $stmt->bind_param("ssss", $username, $first_name, $last_name, $password, $registration_date);
+        $stmt->bind_param("sssss", $username, $first_name, $last_name, $password, $registration_date);
         if ($stmt->execute()) {
-            // Insert successful
-            $status = 'success';
-            $msg = "Registration succesful!";
             $user_id = $mysqli->insert_id;
-
             // Update image url
-            $url_img = "https://dmdproject02.000webhostapp.com/photo/" . $user_id . ".png";
+            $url_img = "https://dmdproject02.000webhostapp.com/photo/" . $user_id . ".jpg";
             $sql = "UPDATE users SET url_img = ? WHERE id = ?";
             $stmt = $mysqli->prepare($sql);
             $stmt->bind_param("si", $url_img, $user_id);
+            // Execute update image
+            if ($stmt->execute()) {
+                // Insert successful
+                $status = 'success';
+                $msg = "Registration succesful!";
+            }
+            else{
+                $status = 'error';
+                $msg = "Registration failed!";
+            }
         } else {
             $status = 'error';
             $msg = "Registration failed!";

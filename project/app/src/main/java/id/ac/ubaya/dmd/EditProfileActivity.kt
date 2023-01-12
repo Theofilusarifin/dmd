@@ -6,10 +6,8 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Base64
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -25,12 +23,9 @@ import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 import kotlinx.android.synthetic.main.activity_edit_profile.imagePhotoProfile
-import kotlinx.android.synthetic.main.fragment_setting.*
-import kotlinx.android.synthetic.main.layout_item_peringkat_default.view.*
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
-import java.lang.ref.WeakReference
 
 
 class EditProfileActivity : AppCompatActivity() {
@@ -60,7 +55,7 @@ class EditProfileActivity : AppCompatActivity() {
             imgCheckBoxPrivacySetting.setImageResource(R.drawable.ic_baseline_check_box_outline_blank_24)
         }
 
-//        Button Update
+//        Button Save
         btnUpdateProfile.setOnClickListener {
             // UPLOAD IMAGE KE WEBSERVICE
             if (imageToUpload != null){
@@ -173,6 +168,7 @@ class EditProfileActivity : AppCompatActivity() {
     // Function buat panggil implicit Intent Camera
     private fun GetPictureFromCamera() {
         val cameraIntent = Intent()
+//        cari aplikasi untuk ngambil kamera pake apa
         cameraIntent.action = MediaStore.ACTION_IMAGE_CAPTURE
         startActivityForResult(cameraIntent, 0)
     }
@@ -229,8 +225,6 @@ class EditProfileActivity : AppCompatActivity() {
             else if(requestCode == 1) {
                 // requestCode 1 --> Gallery
                 var imageUri = data?.data //image uri ato path
-                // set uri to image view
-//                imagePhotoProfile.setImageURI(imageUri)
 
                 // Convert uri to Bitmap
                 var bitmapFromUri = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
@@ -266,7 +260,7 @@ class EditProfileActivity : AppCompatActivity() {
                     val params: MutableMap<String, DataPart> = HashMap()
                     val imageName = Global.user_id.toString()
                     Log.e("Image Name", imageName)
-                    params["image"] = DataPart("$imageName.png", getFileDataFromDrawable(bitmap))
+                    params["image"] = DataPart("$imageName.jpg", getFileDataFromDrawable(bitmap))
                     return params
                 }
             }

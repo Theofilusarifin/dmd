@@ -52,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
                 url,
                 Response.Listener {
                     val obj = JSONObject(it)
-
+//                    Result
                     if (obj.getString("status") == "success") {
 //                        Get user Detail
                         val userDetail = JSONObject(obj.getString("user"))

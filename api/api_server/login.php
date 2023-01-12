@@ -22,7 +22,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     $stmt->bind_param("ss", $username, $password);
     $stmt->execute();
     $res = $stmt->get_result();
-    $row = $res->fetch_assoc();
+    $row = $res->fetch_assoc(); //array
 
     // If there is no data that matched
     if (!$row) {

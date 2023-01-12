@@ -27,29 +27,33 @@ import kotlinx.android.synthetic.main.fragment_setting.*
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     // Buat list fragment
     val fragments: ArrayList<Fragment> = ArrayList()
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.drawer_layout)
 
+//        Untuk nampilin menu navigation drawer yang kiri atas
         setSupportActionBar(toolbar)
-
+//        Set supaya jadi hamburger
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
+//        Set title supaya kosong (masalah display kecantikan saja)
+        supportActionBar?.title = ""
+//        Set drawer_layout pada toolbar
         var drawerToggle = ActionBarDrawerToggle(this, drawerLayout, toolbar,R.string.app_name, R.string.app_name)
+//        Kalau drawer ada perubahan
         drawerToggle.isDrawerIndicatorEnabled = true
+//        Sinkonisasi
         drawerToggle.syncState()
-
+        //        Set navigation menu yang ada di bawah
         navView.setNavigationItemSelectedListener(this)
 
-        supportActionBar?.title = ""
-
         // ViewPager Process
-        // Tambahin fragment ke listnya
+        // Tambahin fragment ke listnya supaya viewpager bisa berjalan
         fragments.add(HomeFragment())
         fragments.add(MyCreationFragment())
         fragments.add(LeaderboardFragment())
         fragments.add(SettingFragment())
 
-        // Aktifin ViewPagernya
+        // Aktifin ViewPagernya dengan fragment yang telah ditambahkan
         rvListOfComment.adapter = ViewPagerAdapter(this, fragments)
 
         // Sinkronisasi Bottom Nav dengan ViewPager
@@ -59,7 +63,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 bottomNav.selectedItemId = bottomNav.menu.getItem(position).itemId
             }
         })
-
 
         // Sinkronisasi ViewPager dengan Bottom Nav
         bottomNav.setOnItemSelectedListener {
@@ -72,7 +75,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             true
         }
-
 //        Set Default yang aktif adalah home
         navView.getMenu().getItem(0).setChecked(true)
 
@@ -89,10 +91,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
 
             override fun onDrawerStateChanged(newState: Int) {
+                // Update active drawernya
+                navView.getMenu().getItem(rvListOfComment.currentItem).setChecked(true)
+
                 navView.txtMenuName.text = Global.firstName + " " + Global.lastName
                 navView.txtMenuUsername.text = "@" + Global.username
-                //            Get Image
-                //convert the image string int bytes like this
                 //            Get Image
                 val url = Global.urlImg
                 if (url != ""){

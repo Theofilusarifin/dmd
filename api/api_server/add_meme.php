@@ -19,7 +19,7 @@ if (isset($_POST['user_id']) && isset($_POST['url_img']) && isset($_POST['top_te
 
     // Add 7 hour because gmt+7
     $now = date("Y-m-d H:m:s");
-    $created_at = date("Y-m-d H:i:s", strtotime($date . ' + 7 hours'));
+    $created_at = date("Y-m-d H:i:s", strtotime($now . ' + 7 hours'));
 
     $sql = "INSERT INTO memes (user_id, url_img, top_text, bottom_text, created_at) VALUES (?, ?, ?, ?, ?)";
     $stmt = $mysqli->prepare($sql);
