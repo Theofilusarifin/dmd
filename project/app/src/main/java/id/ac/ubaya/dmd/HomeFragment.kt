@@ -31,7 +31,6 @@ class HomeFragment : Fragment() {
 
         }
 
-
     }
 
     override fun onCreateView(
@@ -54,8 +53,6 @@ class HomeFragment : Fragment() {
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                sortBySelected = Global.sortBy[0].name
-                getMemelist()
             }
         }
 
@@ -73,8 +70,6 @@ class HomeFragment : Fragment() {
     fun getMemelist(){
         val queue = Volley.newRequestQueue(activity)
         val url = "https://ubaya.fun/native/160420108/api/get_memes.php"
-        memelist = ArrayList()
-
         val stringRequest = object : StringRequest(
             Request.Method.POST,
             url,
@@ -83,6 +78,7 @@ class HomeFragment : Fragment() {
 
                 if (obj.getString("status") == "success") {
                     val memes = obj.getJSONArray("memes")
+                    memelist = ArrayList()
                     for (i in 0 until memes.length()){
                         val memeObject = memes.getJSONObject(i)
                         val meme = Memes(
