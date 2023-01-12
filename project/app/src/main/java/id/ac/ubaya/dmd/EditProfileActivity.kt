@@ -239,11 +239,11 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun uploadBitmap(bitmap: Bitmap?) {
-        val volleyMultipartRequest: VolleyMultipartRequest =
-            object : VolleyMultipartRequest(Request.Method.POST, "https://dmdproject02.000webhostapp.com/api/upload_photo.php",
+        val volleyMultiPartRequest: VolleyMultiPartRequest =
+            object : VolleyMultiPartRequest(Request.Method.POST, "https://dmdproject02.000webhostapp.com/api/upload_photo.php",
                 Response.Listener { response ->
                     try {
-                        val obj = JSONObject(String(response.data))
+                        val obj = response
 //                        Show error
                         if (obj.getString("status") == "error"){
                             Toast.makeText(this, obj.getString("msg"), Toast.LENGTH_LONG).show()
@@ -256,20 +256,21 @@ class EditProfileActivity : AppCompatActivity() {
                     Toast.makeText(applicationContext, error.message, Toast.LENGTH_LONG).show()
                     Log.e("GotError", "" + error.message)
                 }) {
-                override fun getByteData(): Map<String, DataPart> {
-                    val params: MutableMap<String, DataPart> = HashMap()
+                override fun getByteData(): Map<String, DataPart>? {
+                    val params: MutableMap<String, VolleyMultiPartRequest.DataPart> = HashMap()
                     val imageName = Global.user_id.toString()
                     Log.e("Image Name", imageName)
-                    params["image"] = DataPart("$imageName.jpg", getFileDataFromDrawable(bitmap))
+                    val byteArrayFromFile = getFileDataFromDrawable(bitmap)
+                    params["image"] = DataPart("$imageName.jpg", byteArrayFromFile, "image/*")
                     return params
                 }
             }
 
         //adding the request to volley
-        Volley.newRequestQueue(this).add(volleyMultipartRequest)
+        Volley.newRequestQueue(this).add(volleyMultiPartRequest)
     }
 
-    fun getFileDataFromDrawable(bitmap: Bitmap?): ByteArray? {
+    fun getFileDataFromDrawable(bitmap: Bitmap?): ByteArray {
         val byteArrayOutputStream = ByteArrayOutputStream()
         bitmap!!.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream)
         return byteArrayOutputStream.toByteArray()
