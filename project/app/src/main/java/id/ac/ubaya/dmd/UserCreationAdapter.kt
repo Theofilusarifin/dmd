@@ -15,7 +15,6 @@ import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.meme_card.view.*
 import kotlinx.android.synthetic.main.user_meme_card.view.*
 import kotlinx.android.synthetic.main.user_meme_card.view.btn_user_detail
 import kotlinx.android.synthetic.main.user_meme_card.view.btn_user_like
