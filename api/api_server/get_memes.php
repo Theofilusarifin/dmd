@@ -117,41 +117,50 @@ if (isset($_POST['user_id']) && isset($_POST['sort_by'])) {
             if (!in_array($meme_reports[$i]['id'], $meme_reported_id)) {
                 // if meme is already liked by user, set liked to true so user can not like it again
                 $liked = (in_array($meme_reports[$i]['id'], $meme_liked_id)) ? true : false;
-                $meme = array(
-                    "id" => $meme_reports[$i]['id'],
-                    "user_id" => $meme_reports[$i]['user_id'],
-                    "url_img" => $meme_reports[$i]['url_img'],
-                    "top_text" => $meme_reports[$i]['top_text'],
-                    "bottom_text" => $meme_reports[$i]['bottom_text'],
-                    "created_at" => $meme_reports[$i]['created_at'],
-                    "total_report" => $meme_reports[$i]['total_report'],
-                    "total_like" => $meme_likes[array_search($meme_reports[$i]['id'], array_column($meme_likes, 'id'))]['total_like'],
-                    "total_comment" => $meme_comments[array_search($meme_reports[$i]['id'], array_column($meme_comments, 'id'))]['total_comment'],
-                    "liked" => $liked
-                );
-                $memes[] = $meme;
+                $total_like = $meme_likes[array_search($meme_reports[$i]['id'], array_column($meme_likes, 'id'))]['total_like'];
+                $total_comment = $meme_comments[array_search($meme_reports[$i]['id'], array_column($meme_comments, 'id'))]['total_comment'];
+                // Make sure num reported below 3 to be added
+                if ($meme_reports[$i]['total_report'] < 3) {
+                    $meme = array(
+                        "id" => $meme_reports[$i]['id'],
+                        "user_id" => $meme_reports[$i]['user_id'],
+                        "url_img" => $meme_reports[$i]['url_img'],
+                        "top_text" => $meme_reports[$i]['top_text'],
+                        "bottom_text" => $meme_reports[$i]['bottom_text'],
+                        "created_at" => $meme_reports[$i]['created_at'],
+                        "total_report" => $meme_reports[$i]['total_report'],
+                        "total_like" =>  $total_like,
+                        "total_comment" => $total_comment,
+                        "liked" => $liked
+                    );
+                    $memes[] = $meme;
+                }
             }
         }
-    }
-    else if ($sort_by == "On Trending") {
+    } else if ($sort_by == "On Trending") {
         for ($i = 0; $i < count($meme_comments); $i++) {
             // If meme is not reported the display the meme
             if (!in_array($meme_comments[$i]['id'], $meme_reported_id)) {
                 // if meme is already liked by user, set liked to true so user can not like it again
                 $liked = (in_array($meme_comments[$i]['id'], $meme_liked_id)) ? true : false;
-                $meme = array(
-                    "id" => $meme_comments[$i]['id'],
-                    "user_id" => $meme_comments[$i]['user_id'],
-                    "url_img" => $meme_comments[$i]['url_img'],
-                    "top_text" => $meme_comments[$i]['top_text'],
-                    "bottom_text" => $meme_comments[$i]['bottom_text'],
-                    "created_at" => $meme_comments[$i]['created_at'],
-                    "total_comment" => $meme_comments[$i]['total_comment'],
-                    "total_like" => $meme_likes[array_search($meme_comments[$i]['id'], array_column($meme_likes, 'id'))]['total_like'],
-                    "total_report" => $meme_reports[array_search($meme_comments[$i]['id'], array_column($meme_reports, 'id'))]['total_report'],
-                    "liked" => $liked
-                );
-                $memes[] = $meme;
+                $total_like = $meme_likes[array_search($meme_comments[$i]['id'], array_column($meme_likes, 'id'))]['total_like'];
+                $total_report = $meme_reports[array_search($meme_comments[$i]['id'], array_column($meme_reports, 'id'))]['total_report'];
+                // Make sure num reported below 3 to be added
+                if ($total_report < 3) {
+                    $meme = array(
+                        "id" => $meme_comments[$i]['id'],
+                        "user_id" => $meme_comments[$i]['user_id'],
+                        "url_img" => $meme_comments[$i]['url_img'],
+                        "top_text" => $meme_comments[$i]['top_text'],
+                        "bottom_text" => $meme_comments[$i]['bottom_text'],
+                        "created_at" => $meme_comments[$i]['created_at'],
+                        "total_comment" => $meme_comments[$i]['total_comment'],
+                        "total_like" => $total_like,
+                        "total_report" => $total_report,
+                        "liked" => $liked
+                    );
+                    $memes[] = $meme;
+                }
             }
         }
     } else if ($sort_by == "Most popular") {
@@ -160,19 +169,24 @@ if (isset($_POST['user_id']) && isset($_POST['sort_by'])) {
             if (!in_array($meme_likes[$i]['id'], $meme_reported_id)) {
                 // if meme is already liked by user, set liked to true so user can not like it again
                 $liked = (in_array($meme_likes[$i]['id'], $meme_liked_id)) ? true : false;
-                $meme = array(
-                    "id" => $meme_likes[$i]['id'],
-                    "user_id" => $meme_likes[$i]['user_id'],
-                    "url_img" => $meme_likes[$i]['url_img'],
-                    "top_text" => $meme_likes[$i]['top_text'],
-                    "bottom_text" => $meme_likes[$i]['bottom_text'],
-                    "created_at" => $meme_likes[$i]['created_at'],
-                    "total_like" => $meme_likes[$i]['total_like'],
-                    "total_comment" => $meme_comments[array_search($meme_likes[$i]['id'], array_column($meme_comments, 'id'))]['total_comment'],
-                    "total_report" => $meme_reports[array_search($meme_likes[$i]['id'], array_column($meme_reports, 'id'))]['total_report'],
-                    "liked" => $liked
-                );
-                $memes[] = $meme;
+                $total_comment = $meme_comments[array_search($meme_likes[$i]['id'], array_column($meme_comments, 'id'))]['total_comment'];
+                $total_report = $meme_reports[array_search($meme_likes[$i]['id'], array_column($meme_reports, 'id'))]['total_report'];
+                // Make sure num reported below 3 to be added
+                if ($total_report < 3) {
+                    $meme = array(
+                        "id" => $meme_likes[$i]['id'],
+                        "user_id" => $meme_likes[$i]['user_id'],
+                        "url_img" => $meme_likes[$i]['url_img'],
+                        "top_text" => $meme_likes[$i]['top_text'],
+                        "bottom_text" => $meme_likes[$i]['bottom_text'],
+                        "created_at" => $meme_likes[$i]['created_at'],
+                        "total_like" => $meme_likes[$i]['total_like'],
+                        "total_comment" => $total_comment,
+                        "total_report" => $total_report,
+                        "liked" => $liked
+                    );
+                    $memes[] = $meme;
+                }
             }
         }
     }
