@@ -37,16 +37,11 @@ class UserCreationAdapter(private val context: Context, val listMemes:ArrayList<
     }
 
     override fun onBindViewHolder(holder: UserCreationViewHolder, @SuppressLint("RecyclerView") position: Int) {
-        //        Check button like
-        if (listMemes[position].liked) {
-            holder.v.btn_user_like.setImageResource(R.drawable.like_filled)
-        }
-        else{
-            holder.v.btn_user_like.setImageResource(R.drawable.like)
-        }
-
         if (listMemes[position].total_report >= 3){
             holder.v.userCreationConstraint.setBackgroundColor(Color.parseColor("#C6C7C9"))
+        }
+        else{
+            holder.v.userCreationConstraint.setBackgroundColor(Color.parseColor("#FFFFFF"))
         }
 
         //        Get Memes data
@@ -68,107 +63,6 @@ class UserCreationAdapter(private val context: Context, val listMemes:ArrayList<
 //            Start a new activity by using the crated intent
             context.startActivity(intent)
         }
-
-        //        Button Like
-        holder.v.btn_user_like.setOnClickListener {
-//              Check wether the login user already like the meme or not
-            if (!listMemes[position].liked) {
-                val queue = Volley.newRequestQueue(holder.v.context)
-//            IP Arifin
-                val url = "https://ubaya.fun/native/160420108/api/add_like.php"
-
-                val stringRequest = object : StringRequest(
-                    Request.Method.POST,
-                    url,
-                    Response.Listener {
-                        val obj = JSONObject(it)
-                        if (obj.getString("status") == "success") {
-                            // Update Like
-                            listMemes[position].total_like++
-                            // Update Boolean
-                            listMemes[position].liked = true
-                            // Update Total Like Text and Icon
-                            var newlikes = listMemes[position].total_like
-                            holder.v.tv_user_like.text = newlikes.toString() + " Likes"
-                            holder.v.btn_user_like.setImageResource(R.drawable.like_filled);
-//                        Show Msg
-                            Toast.makeText(
-                                holder.v.context,
-                                obj.getString("msg"),
-                                Toast.LENGTH_LONG
-                            ).show()
-                        } else {
-                            Toast.makeText(
-                                holder.v.context,
-                                obj.getString("msg"),
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-                    },
-                    Response.ErrorListener {
-                        Toast.makeText(holder.v.context, "Error Add Like", Toast.LENGTH_SHORT)
-                            .show()
-                        Log.e("Gagal", it.toString())
-                    }
-                ) {
-                    override fun getParams(): MutableMap<String, String> {
-                        val params = HashMap<String, String>()
-                        params["user_id"] = Global.user_id.toString()
-                        params["meme_id"] = listMemes[position].id.toString()
-                        return params
-                    }
-                }
-                queue.add(stringRequest)
-            } else {
-                val queue = Volley.newRequestQueue(holder.v.context)
-//            IP Arifin
-                val url = "https://ubaya.fun/native/160420108/api/remove_like.php"
-
-                val stringRequest = object : StringRequest(
-                    Request.Method.POST,
-                    url,
-                    Response.Listener {
-                        val obj = JSONObject(it)
-                        if (obj.getString("status") == "success") {
-                            // Update Like
-                            listMemes[position].total_like--
-                            // Update Boolean
-                            listMemes[position].liked = false
-                            // Update Total Like Text and Icon
-                            var newlikes = listMemes[position].total_like
-                            holder.v.tv_user_like.text = newlikes.toString() + " Likes"
-                            holder.v.btn_user_like.setImageResource(R.drawable.like);
-//                        Show Msg
-                            Toast.makeText(
-                                holder.v.context,
-                                obj.getString("msg"),
-                                Toast.LENGTH_LONG
-                            ).show()
-                        } else {
-                            Toast.makeText(
-                                holder.v.context,
-                                obj.getString("msg"),
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-                    },
-                    Response.ErrorListener {
-                        Toast.makeText(holder.v.context, "Error Add Like", Toast.LENGTH_SHORT)
-                            .show()
-                        Log.e("Gagal", it.toString())
-                    }
-                ) {
-                    override fun getParams(): MutableMap<String, String> {
-                        val params = HashMap<String, String>()
-                        params["user_id"] = Global.user_id.toString()
-                        params["meme_id"] = listMemes[position].id.toString()
-                        return params
-                    }
-                }
-                queue.add(stringRequest)
-            }
-        }
-
     }
 
     override fun getItemCount(): Int = listMemes.size
