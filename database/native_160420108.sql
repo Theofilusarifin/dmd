@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 12, 2023 at 04:42 AM
+-- Generation Time: Jan 12, 2023 at 07:50 AM
 -- Server version: 10.3.37-MariaDB-0ubuntu0.20.04.1
 -- PHP Version: 7.4.3
 
@@ -169,7 +169,8 @@ INSERT INTO `memes` (`id`, `user_id`, `url_img`, `top_text`, `bottom_text`, `cre
 (16, 3, 'https://ubaya.fun/native/160420108/meme/Meme-16.jpg', 'I thought I was ready for love,', 'but maybe not yet.', '2023-01-11 04:26:21'),
 (17, 3, 'https://ubaya.fun/native/160420108/meme/Meme-17.jpg', 'When you\'re trying to be productive', 'but memes are life.', '2023-01-11 04:26:21'),
 (32, 9, 'https://ubaya.fun/native/160420108/meme/Meme-18.jpg', 'Dua tiga ubur ubur', 'Kabuurr', '2023-01-12 09:01:31'),
-(50, 4, 'https://ubaya.fun/native/160420108/meme/Meme-9.jpg', 'Informatics students', 'Love is a bug', '2023-01-12 09:18:08');
+(50, 4, 'https://ubaya.fun/native/160420108/meme/Meme-9.jpg', 'Informatics students', 'Love is a bug', '2023-01-12 09:18:08'),
+(51, 10, 'https://ubaya.fun/native/160420108/meme/Meme-6.jpg', 'Satu dua tiga', 'love you', '2023-01-12 12:01:24');
 
 -- --------------------------------------------------------
 
@@ -212,7 +213,7 @@ CREATE TABLE `users` (
   `first_name` varchar(30) NOT NULL,
   `last_name` varchar(30) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
-  `registration_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `registration_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `url_img` text DEFAULT NULL,
   `privacy_setting` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -230,7 +231,7 @@ INSERT INTO `users` (`id`, `username`, `first_name`, `last_name`, `password`, `r
 (7, 'user3', 'user', '3', 'password', '2023-01-12 03:00:59', 'https://dmdproject02.000webhostapp.com/photo/7.jpg', 1),
 (8, 'user4', 'user', '4', 'password', '2023-01-12 03:00:55', 'https://dmdproject02.000webhostapp.com/photo/8.jpg', 0),
 (9, 'user5', 'user', '5', 'password', '2023-01-12 03:01:03', 'https://dmdproject02.000webhostapp.com/photo/9.jpg', 0),
-(10, 'user6', 'user', '6', 'password', '2023-01-12 10:04:41', NULL, 0);
+(10, 'user6', 'user', '6', 'password', '2023-01-12 12:01:51', 'https://dmdproject02.000webhostapp.com/photo/10.jpg', 1);
 
 --
 -- Indexes for dumped tables
@@ -295,7 +296,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `memes`
 --
 ALTER TABLE `memes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `users`
