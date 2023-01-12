@@ -33,7 +33,6 @@ class LeaderboardFragment : Fragment() {
     }
 
     fun getLeaderboard(){
-
         val queue = Volley.newRequestQueue(activity)
 //        IP Arifin
 //        val url = "http://192.168.100.37/dmd/api/get_leaderboard.php"
@@ -91,6 +90,7 @@ class LeaderboardFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+//        Supaya ga double data leaderboardnya
         getLeaderboard()
     }
 

@@ -29,7 +29,7 @@ if (isset($_POST['meme_id']) && isset($_POST['user_id'])) {
     }
 
     // Get all comment detail
-    $sql =  "SELECT c.*, u.first_name, u.last_name, u.privacy_setting, count(lc.comment_id) as total_like FROM comments c LEFT JOIN like_comments lc on c.id = lc.comment_id INNER JOIN users u on u.id = c.user_id WHERE c.meme_id = ? GROUP BY c.id ORDER BY c.created_at";
+    $sql =  "SELECT c.*, u.first_name, u.last_name, u.privacy_setting, count(lc.comment_id) as total_like FROM comments c LEFT JOIN like_comments lc on c.id = lc.comment_id INNER JOIN users u on u.id = c.user_id WHERE c.meme_id = ? GROUP BY c.id ORDER BY c.created_at DESC";
     $stmt = $mysqli->prepare($sql);
     $stmt->bind_param("i", $meme_id);
     $stmt->execute();

@@ -29,9 +29,9 @@ if (isset($_POST['username']) && isset($_POST['first_name']) && isset($_POST['pa
     // If there is no data that matched
     if (!$row) {
         $sql = "INSERT INTO users (username, first_name, last_name, password, registration_date) VALUES (?, ?, ?, ?, ?)";
-        
+
         // Add 7 hour because gmt+7
-        $now = date("Y-m-d H:m:s");
+        $now = date("Y-m-d H:i:s");
         $registration_date = date("Y-m-d H:i:s", strtotime($now . ' + 7 hours'));
 
         $stmt = $mysqli->prepare($sql);

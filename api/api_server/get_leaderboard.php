@@ -27,7 +27,7 @@ while ($row = $res->fetch_assoc()) {
         "privacy_setting" => $row['privacy_setting'],
         "total_like" => 0,
     );
-
+// Assign data into array users
     $users[] = $user;
 }
 
@@ -42,14 +42,14 @@ if (count($users) > 0){
         // Insert total like into detail users
         $users[array_search($row['user_id'], array_column($users, 'id'))]['total_like'] = $row['total_like'];
     }
+    
+    // Sort Array
+    array_multisort(array_column($users, "total_like"), SORT_DESC, $users);
+    // Set success status 
+    $status = 'success';
+    $msg = "Get leaderboard successful!";
 }
 
-// Sort Array
-array_multisort(array_column($users, "total_like"), SORT_DESC, $users);
-
-// Set success status 
-$status = 'success';
-$msg = "Get leaderboard successful!";
 
 // Return Json
 echo json_encode(array(
