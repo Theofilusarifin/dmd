@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_setting.*
 import kotlinx.android.synthetic.main.fragment_setting.view.*
 
@@ -75,7 +76,11 @@ class SettingFragment : Fragment() {
         super.onResume()
 //        Set login user
         txtProfileName.text = Global.firstName + " " + Global.lastName
-        txtRegistrationDate.text = "Active since " + Global.registrationDate
+        var dateDatabase = Global.registrationDate
+        var tahun = dateDatabase.subSequence(0, 4)
+        var bulan:CharSequence = dateDatabase.subSequence(5, 7)
+        var namaBulan = StringMonth(bulan)
+        txtRegistrationDate.text = "Active since $namaBulan $tahun"
         txtProfileUsername.text = "@" + Global.username
 
         //            Get Image
@@ -90,6 +95,26 @@ class SettingFragment : Fragment() {
         else{
             txtProfileTypeAccount.text = "Public Account"
         }
+    }
+
+    fun StringMonth(bulan: CharSequence):String{
+        var monthString: String = ""
+        monthString = when(bulan){
+            "01" -> "January"
+            "02" -> "February"
+            "03" -> "March"
+            "04" -> "April"
+            "05" -> "May"
+            "06" -> "June"
+            "07" -> "July"
+            "08" -> "August"
+            "09" -> "September"
+            "10" -> "October"
+            "11" -> "November"
+            "12" -> "December"
+            else -> "January" // defaultnya home
+        }
+        return monthString
     }
 
     companion object {
