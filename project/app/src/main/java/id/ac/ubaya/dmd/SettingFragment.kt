@@ -75,6 +75,7 @@ class SettingFragment : Fragment() {
         super.onResume()
 //        Set login user
         txtProfileName.text = Global.firstName + " " + Global.lastName
+        txtRegistrationDate.text = Global.registrationDate
         txtProfileUsername.text = "@" + Global.username
 
         //            Get Image
