@@ -112,7 +112,7 @@ class SettingFragment : Fragment() {
             "10" -> "October"
             "11" -> "November"
             "12" -> "December"
-            else -> "January" // defaultnya home
+            else -> "January" // defaultnya january
         }
         return monthString
     }
