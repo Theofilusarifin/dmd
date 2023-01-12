@@ -15,7 +15,16 @@ import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.meme_card.view.*
 import kotlinx.android.synthetic.main.user_meme_card.view.*
+import kotlinx.android.synthetic.main.user_meme_card.view.btn_user_detail
+import kotlinx.android.synthetic.main.user_meme_card.view.btn_user_like
+import kotlinx.android.synthetic.main.user_meme_card.view.iv_meme_detail
+import kotlinx.android.synthetic.main.user_meme_card.view.tv_detail_bottom
+import kotlinx.android.synthetic.main.user_meme_card.view.tv_detail_top
+import kotlinx.android.synthetic.main.user_meme_card.view.tv_user_comment
+import kotlinx.android.synthetic.main.user_meme_card.view.tv_user_like
+import kotlinx.android.synthetic.main.user_meme_card.view.tv_user_report
 import org.json.JSONObject
 
 class UserCreationAdapter(private val context: Context, val listMemes:ArrayList<Memes>)
@@ -32,6 +41,9 @@ class UserCreationAdapter(private val context: Context, val listMemes:ArrayList<
         //        Check button like
         if (listMemes[position].liked) {
             holder.v.btn_user_like.setImageResource(R.drawable.like_filled)
+        }
+        else{
+            holder.v.btn_user_like.setImageResource(R.drawable.like)
         }
 
         if (listMemes[position].total_report >= 3){
