@@ -16,9 +16,13 @@ if (isset($_POST['user_id']) && isset($_POST['meme_id']) && isset($_POST['conten
     $meme_id = $_POST['meme_id'];
     $content = $_POST['content'];
 
-    $sql = "INSERT INTO comments (user_id, meme_id, content, created_at) VALUES (?, ?, ?, NOW())";
+    // Add 7 hour because gmt+7
+    $now = date("Y-m-d H:m:s");
+    $created_at = date("Y-m-d H:i:s", strtotime($date . ' + 7 hours'));
+
+    $sql = "INSERT INTO comments (user_id, meme_id, content, created_at) VALUES (?, ?, ?, ?)";
     $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param("iis", $user_id, $meme_id, $content);
+    $stmt->bind_param("iiss", $user_id, $meme_id, $content, $created_at);
     if ($stmt->execute()) {
         // Insert successful
         $status = 'success';

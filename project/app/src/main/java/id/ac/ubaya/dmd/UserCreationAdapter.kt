@@ -52,6 +52,7 @@ class UserCreationAdapter(private val context: Context, val listMemes:ArrayList<
         //        Get Memes data
         val url = listMemes[position].url_img
         Picasso.get().load(url).into(holder.v.iv_meme_detail)
+        holder.v.tv_user_date.text = listMemes[position].created_at
         holder.v.tv_detail_top.text = listMemes[position].top_text
         holder.v.tv_detail_bottom.text = listMemes[position].bottom_text
         holder.v.tv_user_like.text = listMemes[position].total_like.toString() + " Likes"
