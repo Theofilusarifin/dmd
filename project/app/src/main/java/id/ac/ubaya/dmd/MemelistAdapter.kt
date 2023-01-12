@@ -42,6 +42,10 @@ class MemelistAdapter(private val context: Context, val listMemes: ArrayList<Mem
         if (listMemes[position].liked) {
             holder.v.btn_user_like.setImageResource(R.drawable.like_filled)
         }
+        else{
+            holder.v.btn_user_like.setImageResource(R.drawable.like)
+        }
+
 
 //        Button Like
         holder.v.btn_user_like.setOnClickListener {
