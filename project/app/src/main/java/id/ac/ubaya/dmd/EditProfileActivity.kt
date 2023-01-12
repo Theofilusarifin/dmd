@@ -63,9 +63,10 @@ class EditProfileActivity : AppCompatActivity() {
 //        Button Update
         btnUpdateProfile.setOnClickListener {
             // UPLOAD IMAGE KE WEBSERVICE
-            // di https://dmdproject02.000webhostapp.com/api/upload_photo.php
-            uploadBitmap(imageToUpload)
-
+            if (imageToUpload != null){
+                // di https://dmdproject02.000webhostapp.com/api/upload_photo.php
+                uploadBitmap(imageToUpload)
+            }
             // UPDATE USER INFORMATION KE DATABASE
             val queue = Volley.newRequestQueue(this)
 //            IP Arifin
@@ -218,14 +219,6 @@ class EditProfileActivity : AppCompatActivity() {
                 // requestCode 0 --> Camera
                 val extras = data!!.extras
                 val imageBitmap: Bitmap = extras!!.get("data") as Bitmap
-
-//                // Get A Good Quality of Image
-//                var imageHighQuality: WeakReference<Bitmap> = WeakReference(Bitmap.createScaledBitmap(imageBitmap
-//                    , imageBitmap.height, imageBitmap.width, false)
-//                    .copy(Bitmap.Config.RGB_565, true))
-//
-//                // Get the bitmap after keeping the quality intact
-//                var bitmapHD: Bitmap? = imageHighQuality.get()
 //
 //                // Set bitmap to image view
                 imagePhotoProfile.setImageBitmap(imageBitmap)
