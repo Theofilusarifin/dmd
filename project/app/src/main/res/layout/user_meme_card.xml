@@ -21,6 +21,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/userCreationConstraint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -84,7 +85,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/iv_user_meme_preview"
+                    android:id="@+id/iv_meme_detail"
                     android:layout_width="match_parent"
                     android:layout_height="270dp"
                     android:contentDescription="@string/meme_picture"
@@ -92,7 +93,7 @@
                     tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
                 <TextView
-                    android:id="@+id/tv_user_preview_top"
+                    android:id="@+id/tv_detail_top"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="16dp"
@@ -111,7 +112,7 @@
                     tools:ignore="TextContrastCheck" />
 
                 <TextView
-                    android:id="@+id/tv_user_preview_bottom"
+                    android:id="@+id/tv_detail_bottom"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="16dp"
@@ -171,7 +172,7 @@
                 android:layout_marginEnd="32dp"
                 android:backgroundTint="#00FFFFFF"
                 android:contentDescription="@string/app_name"
-                android:src="@drawable/like_filled"
+                android:src="@drawable/like"
                 app:layout_constraintEnd_toEndOf="@+id/divider"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_user_date" />

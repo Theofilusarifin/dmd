@@ -1,23 +1,26 @@
 package id.ac.ubaya.dmd
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.meme_card.view.*
 import org.json.JSONObject
 
-class MemelistAdapter(val listMemes: ArrayList<Memes>) :
+class MemelistAdapter(private val context: Context, val listMemes: ArrayList<Memes>) :
     RecyclerView.Adapter<MemelistAdapter.MemelistViewHolder>() {
     class MemelistViewHolder(val v: View) : RecyclerView.ViewHolder(v)
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemelistViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -31,14 +34,18 @@ class MemelistAdapter(val listMemes: ArrayList<Memes>) :
     ) {
 //        Get Memes data
         val url = listMemes[position].url_img
-        Picasso.get().load(url).into(holder.v.iv_user_meme_preview)
-        holder.v.tv_user_preview_top.text = listMemes[position].top_text
-        holder.v.tv_user_preview_bottom.text = listMemes[position].bottom_text
+        Picasso.get().load(url).into(holder.v.iv_meme_detail)
+        holder.v.tv_detail_top.text = listMemes[position].top_text
+        holder.v.tv_detail_bottom.text = listMemes[position].bottom_text
         holder.v.tv_user_like.text = listMemes[position].total_like.toString() + " Likes"
 //        Check button like
         if (listMemes[position].liked) {
             holder.v.btn_user_like.setImageResource(R.drawable.like_filled)
         }
+        else{
+            holder.v.btn_user_like.setImageResource(R.drawable.like)
+        }
+
 
 //        Button Like
         holder.v.btn_user_like.setOnClickListener {
@@ -185,36 +192,16 @@ class MemelistAdapter(val listMemes: ArrayList<Memes>) :
             queue.add(stringRequest)
         }
 
-
-//        holder.v.btn_detail.setOnClickListener{
-//            val q = Volley.newRequestQueue(holder.v.context)
-//            val url = "http://192.168.43.237/mobile_db/set_likes.php"
-////            val url = "http://192.168.18.109/mobile_db/set_likes.php"
-//            val stringRequest = object : StringRequest(Request.Method.POST, url,
-//                Response.Listener {
-//                    Log.d("cekparams", it)
-//                    IF TRUE INTENT TO NEW ACTIVITY
-//                Response.ErrorListener {
-//                    Log.d("cekparams", it.message.toString())
-//                }
-//            )
-//            {
-//                // anonymous object body
-//                override fun getParams(): MutableMap<String, String> {
-//                    val params = HashMap<String, String>()
-//                    params["id"] = listMemes[position].id.toString()
-//                    return params
-//                }
-//
-//                //short version
-////                override fun getParams() = hashMapOf("id" to playlists[position].id.toString())
-//            }
-//            // Perlu create volley baru
-//            q.add(stringRequest)
-//        }
-//
-//    }
-
+//        Button See Detail
+        holder.v.btn_user_detail.setOnClickListener{
+            val memeId = listMemes[position].id
+//            Create a new intent
+            val intent = Intent(context, DetailMemeActivity::class.java)
+//            Add extra to the intent using extras
+            intent.putExtra("EXTRA_MEME_ID", memeId)
+//            Start a new activity by using the crated intent
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int = listMemes.size

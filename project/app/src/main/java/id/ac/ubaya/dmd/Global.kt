@@ -9,4 +9,10 @@ object Global {
     var registrationDate:String = ""
     var urlImg:String = ""
     var privacySetting:Int = 0
+
+    val sortBy:Array<SortBy> = arrayOf(
+        SortBy(1,"Newest"),
+        SortBy(2,"On Trending"),
+        SortBy(3,"Most popular")
+    )
 }

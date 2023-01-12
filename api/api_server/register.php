@@ -28,14 +28,25 @@ if (isset($_POST['username']) && isset($_POST['first_name']) && isset($_POST['pa
 
     // If there is no data that matched
     if (!$row) {
-        $sql = "INSERT INTO users (username, first_name, last_name, password) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO users (username, first_name, last_name, password, registration_date) VALUES (?, ?, ?, ?, ?)";
+        
+        // Add 7 hour because gmt+7
+        $now = date("Y-m-d H:m:s");
+        $registration_date = date("Y-m-d H:i:s", strtotime($date . ' + 7 hours'));
+
         $stmt = $mysqli->prepare($sql);
-        $stmt->bind_param("ssss", $username, $first_name, $last_name, $password);
+        $stmt->bind_param("ssss", $username, $first_name, $last_name, $password, $registration_date);
         if ($stmt->execute()) {
             // Insert successful
             $status = 'success';
             $msg = "Registration succesful!";
             $user_id = $mysqli->insert_id;
+
+            // Update image url
+            $url_img = "https://dmdproject02.000webhostapp.com/photo/" . $user_id . ".png";
+            $sql = "UPDATE users SET url_img = ? WHERE id = ?";
+            $stmt = $mysqli->prepare($sql);
+            $stmt->bind_param("si", $url_img, $user_id);
         } else {
             $status = 'error';
             $msg = "Registration failed!";
